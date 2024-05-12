@@ -1,0 +1,1 @@
+export {AdminPageTitleSearch} from './ui'

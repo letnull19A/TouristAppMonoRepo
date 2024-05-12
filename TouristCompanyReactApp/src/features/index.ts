@@ -1,0 +1,6 @@
+export { AttractionDataTable } from './attraction-table'
+export { TourDataTable } from './tour-table'
+export { TourAddForm } from './tour-add-form'
+export { TourEditForm } from './tour-edit-form'
+export { TourPrices } from './tour-prices'
+export { TourInfo } from './tour-info'

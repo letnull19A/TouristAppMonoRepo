@@ -1,0 +1,1 @@
+export {AttractionDataTable} from './ui'

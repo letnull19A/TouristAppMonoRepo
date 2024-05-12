@@ -1,0 +1,94 @@
+name: 'amir_tourist_service'
+
+services:
+  gateway:
+    build: ./gateway
+    ports:
+      - '9088:9088'
+    restart: always
+    volumes:
+      - './gateway/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
+    depends_on:
+      - pgadmin
+      - frontend
+      - backend
+    networks:
+      network:
+        ipv4_address: 22.98.1.22
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - '5438:5438'
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data/
+      - './postgres/dataset:/docker-entrypoint-initdb.d'
+    environment:
+      - POSTGRES_DB=BHotel
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - MAX_LOGIN_ATTEMPTS=0
+    networks:
+      network:
+        ipv4_address: 22.98.1.4
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pgadmin@pgadmin.org
+      - PGADMIN_DEFAULT_PASSWORD=password
+      - PGADMIN_LISTEN_PORT=4789
+      - PGADMIN_CONFIG_SERVER_MODE=False
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    ports:
+      - '5052:4789'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    networks:
+      network:
+        ipv4_address: 22.98.1.5
+
+  backend:
+    build: ./TouristCompany
+    restart: unless-stopped
+    ports:
+      - 4590:4590
+    depends_on:
+      - postgres
+    volumes:
+      - './TouristCompany/TouristCompany/appsettings.json:/app/appsettings.json:ro'
+    environment:
+      ASPNETCORE_URLS: http://+:4590
+    networks:
+      network:
+        ipv4_address: 22.98.1.57
+
+  frontend:
+    build: ./TouristCompanyReactApp
+    ports:
+      - '8014:5523'
+    restart: always
+    environment:
+      - VITE_API_URL=http://localhost:9088/api
+    depends_on:
+      - backend
+    volumes:
+      - './TouristCompanyReactApp/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
+    networks:
+      network:
+        ipv4_address: 22.98.1.64
+
+volumes:
+  postgres-data:
+  pgadmin:
+
+networks:
+  network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 22.98.0.0/16
+          gateway: 22.98.0.1

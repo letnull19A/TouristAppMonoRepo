@@ -1,0 +1,1 @@
+export {AdminPageTitle} from './ui'
