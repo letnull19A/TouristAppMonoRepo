@@ -10,14 +10,15 @@ namespace TouristCompany.Controllers
     // a76182e2-7f23-4575-907c-289cbb103ba2 - Администратор
     [ApiController]
     [Route("api/registration")]
-    public class RegistrationController(IRepository<User> userRepository) : ControllerBase
+    public class RegistrationController(IRepository<User> userRepository, IRepository<Role> roleRepository)
+        : ControllerBase
     {
         [HttpPost]
         public IActionResult RegisterUser([FromBody] RegistrationDto registrationDto)
         {
             var newUser = registrationDto.Adapt<User>();
             newUser.RoleId = Guid.Parse("0fe41223-993b-4df4-b222-e9aa4b5824b4");
-            
+
             userRepository.Insert(newUser);
 
             return Ok(new
@@ -27,7 +28,7 @@ namespace TouristCompany.Controllers
                 newUser.LastName,
                 newUser.Patronymic,
                 newUser.Email,
-                newUser.RoleId
+                role = roleRepository.GetById(newUser.RoleId)
             });
         }
     }
