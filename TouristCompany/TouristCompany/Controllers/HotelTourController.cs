@@ -47,7 +47,7 @@ namespace TouristCompany.Controllers
             var result = hotelTourRepository.GetAll()
                 .FirstOrDefault(u => u.TourId == tourId && u.HotelId == hotelId);
 
-            if (result == null) return NotFound();
+            if (result == null) return NotFound("hotel and tour record not found");
 
             result.HotelId = newHotelId.NewHotelId;
 

@@ -1,5 +1,6 @@
 import { tourApi } from '@api'
 import { TAddTourForm, TCategory, TCity, TCountry } from '@entities'
+import { TourAddPricesForm } from '@features'
 import { CountryDropdown, CityDropdown, CategoryDropdown } from '@ui'
 import { Button } from 'primereact/button'
 import { InputText } from 'primereact/inputtext'
@@ -15,7 +16,7 @@ export const TourAddForm = () => {
 		description: '',
 		countryId: '',
 		cityId: '',
-		categoryId: '',
+		categoryId: ''
 	}
 
 	const {
@@ -30,7 +31,7 @@ export const TourAddForm = () => {
 			categoryId: data.categoryId,
 			description: data.description,
 			countryId: data.countryId,
-			cityId: data.cityId,
+			cityId: data.cityId
 		})
 	}
 
@@ -116,7 +117,13 @@ export const TourAddForm = () => {
 					</span>
 				)}
 			/>
-			<Button label="Подтвердить" type="submit" icon="pi pi-check" />
+			<TourAddPricesForm />
+			<Button
+				label="Подтвердить"
+				type="submit"
+				icon="pi pi-check"
+				className="mt-4"
+			/>
 		</form>
 	)
 }
