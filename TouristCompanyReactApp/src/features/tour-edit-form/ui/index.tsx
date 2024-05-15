@@ -56,10 +56,14 @@ export const TourEditForm = () => {
 			cityApi.getById(tourData.city.id).then((res: TCity) => setCity(res))
 
 			hotelTourApi.getAll(tourData.id).then((res) => {
-				hotelApi.getById(res[0].hotelId).then((resq: THotel) => {
-					setHotel(resq)
-					setCurrentHotel(resq)
-				})
+				if (res[0]?.hotelId !== undefined) {
+					hotelApi.getById(res[0].hotelId).then((resq: THotel) => {
+						resq.city = { id: resq.city.id, name: resq.city.name }
+						resq.country = { id: resq.country.id, name: resq.country.name }
+						setHotel(resq)
+						setCurrentHotel(resq)
+					})
+				}
 			})
 		}
 	}, [id, tourData])
@@ -77,19 +81,27 @@ export const TourEditForm = () => {
 	const { control, handleSubmit } = useForm({ defaultValues })
 
 	const onSubmit = (data: Partial<TEditTourForm & { hotel: THotel }>) => {
-		if (data === undefined || hotel?.id === undefined || data.id === undefined)
+		if (
+			data === undefined ||
+			data.id === undefined ||
+			currentHotel === undefined
+		)
 			return
 
-		if (currentHotel === undefined) {
+		if (hotel === undefined) {
+			console.log(1)
+
 			hotelTourApi.create({
 				tourId: data.id,
-				hotelId: hotel.id
+				hotelId: currentHotel?.id
 			})
 		} else {
+			console.log(2)
+
 			hotelTourApi.edit({
-				hotelId: currentHotel?.id ?? '',
-				tourId: data.id,
-				newHotelId: data.hotel?.id ?? ''
+				hotelId: data.id,
+				tourId: hotel.id,
+				newHotelId: currentHotel.id
 			})
 		}
 
@@ -202,7 +214,8 @@ export const TourEditForm = () => {
 							<HotelDropdown
 								defaultValue={hotel}
 								onChange={(e) => {
-									field.onChange((e.target.value as THotel))
+									field.onChange(e.target.value as THotel)
+									setCurrentHotel(e.target.value as THotel)
 								}}
 							/>
 						</div>

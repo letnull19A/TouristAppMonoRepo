@@ -17,7 +17,6 @@ export const HotelDropdown = (props: THotelDropdownProps) => {
 	useEffect(() => {
 		hotelApi.getAll().then(setHotels)
 		setSelectedHotel(defaultValue ?? null)
-		console.log(defaultValue)
 	}, [defaultValue])
 
 	return (
