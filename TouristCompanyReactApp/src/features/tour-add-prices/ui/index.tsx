@@ -1,6 +1,6 @@
 import { Button } from 'primereact/button'
 import { InputText } from 'primereact/inputtext'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 type TTourAddPricesFormItemProps = {
@@ -14,8 +14,6 @@ const TourAddPricesFormItem = (props: TTourAddPricesFormItemProps) => {
 	const { onChange, onDelete, data, index } = props
 	const [price, setPrice] = useState<number>(0)
 	const [days, setDays] = useState<number>(0)
-
-	// comment
 
 	return (
 		<div className="flex flex-row justify-content-between">
