@@ -11,9 +11,9 @@ type TTourAddPricesFormItemProps = {
 }
 
 const TourAddPricesFormItem = (props: TTourAddPricesFormItemProps) => {
-	const { onChange, onDelete, data, index } = props
-	const [price, setPrice] = useState<number>(0)
-	const [days, setDays] = useState<number>(0)
+	const { onDelete, data } = props
+	// const [price, setPrice] = useState<number>(0)
+	// const [days, setDays] = useState<number>(0)
 
 	return (
 		<div className="flex flex-row justify-content-between">
@@ -21,13 +21,13 @@ const TourAddPricesFormItem = (props: TTourAddPricesFormItemProps) => {
 				type="number"
 				className="col-5"
 				defaultValue={data.price}
-				onChange={(e) => setPrice(Number.parseInt(e.target.value))}
+				// onChange={(e) => setPrice(Number.parseInt(e.target.value))}
 			/>
 			<InputText
 				type="number"
 				className="col-4"
 				defaultValue={data.days}
-				onChange={(e) => setDays(Number.parseInt(e.target.value))}
+				// onChange={(e) => setDays(Number.parseInt(e.target.value))}
 			/>
 			<Button
 				className="col-2"
