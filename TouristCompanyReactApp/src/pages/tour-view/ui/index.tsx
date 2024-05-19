@@ -44,11 +44,6 @@ export const TourView = () => {
 					{id && <TourPrices tourId={id} />}
 					<Button
 						className="w-full"
-						style={{
-							background: 'var(--green-700)',
-							color: 'var(--text-color)',
-							borderColor: 'var(--green-700)'
-						}}
 						label="Оставить заявку"
 					/>
 				</div>
