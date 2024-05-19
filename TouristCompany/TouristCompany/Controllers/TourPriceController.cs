@@ -62,7 +62,7 @@ namespace TouristCompany.Controllers
         public IActionResult Delete(Guid tourId, Guid priceId)
         {
             var result = tourPriceRepository.GetAll()
-                .FirstOrDefault(u => u.Id == tourId && u.TourId == priceId);
+                .FirstOrDefault(u => u.Id == priceId && u.TourId == tourId);
 
             if (result == null) return NotFound();
 

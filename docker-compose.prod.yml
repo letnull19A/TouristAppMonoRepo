@@ -52,7 +52,9 @@ services:
         ipv4_address: 22.98.1.5
 
   backend:
-    build: ./TouristCompany
+    build:
+      context: ./TouristCompany
+      dockerfile: Dockerfile.prod
     restart: unless-stopped
     ports:
       - 4590:4590
@@ -72,7 +74,7 @@ services:
       - '8014:5523'
     restart: always
     environment:
-      - VITE_API_URL=http://localhost:9088/api
+      - VITE_API_URL=http://87.242.117.193:9088/api
     depends_on:
       - backend
     volumes:
