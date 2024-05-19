@@ -6,7 +6,7 @@ namespace TouristCompany.Models.Entities;
 [Table("tours")]
 public sealed class Tour : BaseEntity
 {
-    [Column("category_id")] 
+    [Column("category_id")]
     public Guid CategoryId { get; set; }
     public Category Category { get; set; }
 
