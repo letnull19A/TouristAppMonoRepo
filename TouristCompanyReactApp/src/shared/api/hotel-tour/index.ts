@@ -23,8 +23,8 @@ const getById = async (baseId: string, id: string): Promise<THotelTour> => {
 	return data
 }
 
-const create = async (data: TAddHotelTourForm): Promise<void> => {
-	await fetch(
+const create = async (data: TAddHotelTourForm): Promise<Response> => {
+	return await fetch(
 		`${import.meta.env.VITE_API_URI}/api/tour/${data.tourId}/hotel/${
 			data.hotelId
 		}`,

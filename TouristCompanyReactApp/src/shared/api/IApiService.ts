@@ -1,5 +1,5 @@
 interface IApiServiseBase<C, E> {
-	create: (data: C) => Promise<void>
+	create: (data: C) => Promise<Response>
 	edit: (data: E) => Promise<void>
 }
 

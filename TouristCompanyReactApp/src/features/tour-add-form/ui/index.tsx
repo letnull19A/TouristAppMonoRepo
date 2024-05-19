@@ -1,11 +1,19 @@
-import { tourApi } from '@api'
-import { TAddTourForm, TCategory, TCity, TCountry } from '@entities'
+import { tourApi, tourPriceApi } from '@api'
+import { AddPriceTourContext } from '@contexts'
+import {
+	TAddPriceTour,
+	TAddTourForm,
+	TCategory,
+	TCity,
+	TCountry
+} from '@entities'
 import { TourAddPricesForm } from '@features'
-import { CountryDropdown, CityDropdown, CategoryDropdown } from '@ui'
+import { CategoryDropdown, CityDropdown, CountryDropdown } from '@ui'
 import { Button } from 'primereact/button'
 import { InputText } from 'primereact/inputtext'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { classNames } from 'primereact/utils'
+import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
 export const TourAddForm = () => {
@@ -25,6 +33,8 @@ export const TourAddForm = () => {
 		formState: { errors }
 	} = useForm({ defaultValues })
 
+	const [fields, setFields] = useState<Array<TAddPriceTour>>()
+
 	const onSubmit = (data: TAddTourForm) => {
 		create({
 			name: data.name,
@@ -33,6 +43,20 @@ export const TourAddForm = () => {
 			countryId: data.countryId,
 			cityId: data.cityId
 		})
+			.then((response) => response.json())
+			.then((response) => {
+				console.log(fields)
+				fields &&
+					fields.length > 0 &&
+					fields.forEach((field) => {
+						tourPriceApi.create({
+							id: response.id,
+							tourId: response.id,
+							price: field.price,
+							days: field.days
+						})
+					})
+			})
 	}
 
 	const getFormErrorMessage = (name: keyof TAddTourForm) =>
@@ -117,7 +141,11 @@ export const TourAddForm = () => {
 					</span>
 				)}
 			/>
-			<TourAddPricesForm />
+			<AddPriceTourContext.Provider
+				value={{ fields: fields ?? [], setFields: setFields }}
+			>
+				<TourAddPricesForm />
+			</AddPriceTourContext.Provider>
 			<Button
 				label="Подтвердить"
 				type="submit"

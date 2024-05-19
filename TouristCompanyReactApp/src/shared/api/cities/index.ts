@@ -9,8 +9,8 @@ const getAll = async (): Promise<Array<TCity>> => {
 	return data
 }
 
-const create = async (data: TAddCity): Promise<void> => {
-	await fetch(`${import.meta.env.VITE_API_URI}/api/city`, {
+const create = async (data: TAddCity): Promise<Response> => {
+	return await fetch(`${import.meta.env.VITE_API_URI}/api/city`, {
 		method: 'POST',
 		body: JSON.stringify({ ...data }),
 		headers: { 'Content-Type': 'application/json' }

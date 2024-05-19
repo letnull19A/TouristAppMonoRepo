@@ -9,8 +9,8 @@ const getAll = async (): Promise<Array<THotel>> => {
 	return data
 }
 
-const create = async (data: TAddHotelForm): Promise<void> => {
-	await fetch(`${import.meta.env.VITE_API_URI}/api/hotel`, {
+const create = async (data: TAddHotelForm): Promise<Response> => {
+	return await fetch(`${import.meta.env.VITE_API_URI}/api/hotel`, {
 		method: 'POST',
 		body: JSON.stringify({ ...data }),
 		headers: {

@@ -1,0 +1,14 @@
+table {
+    width: 100%;
+}
+
+.days {
+    width: 30%;
+    min-width: 30px;
+    text-align: center;
+}
+
+.price {
+    width: 80%;
+    text-align: end;
+}
