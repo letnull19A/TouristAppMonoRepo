@@ -120,7 +120,7 @@ public class SearchController(
                     AirportCity = t.City
                 });
 
-        return Ok(readyResult);
+        return Ok(searchResult);
     }
 
     private async Task<List<Ticket>> GetAllTickets()
