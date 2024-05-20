@@ -1,17 +1,14 @@
-import { TTour } from '@entities'
+import { SearchContext } from '@contexts'
 import { HotelCard } from '@widgets'
+import { useContext } from 'react'
 
-type TCardProps = {
-	tours: Array<TTour>
-}
-
-export const CardGrid = (props: TCardProps) => {
-	const { tours } = props
+export const CardGrid = () => {
+	const context = useContext(SearchContext)
 
 	return (
 		<div className="col-12 p-0 flex flex-wrap">
-			{tours !== undefined && tours.length > 0 ? (
-				tours.map((tour) => <HotelCard key={tour.id} tourData={tour} />)
+			{context.data !== undefined && context.data.length > 0 ? (
+				context.data.map((tour) => <HotelCard key={tour.id} tourData={tour} />)
 			) : (
 				<>Туры отсутствуют</>
 			)}
