@@ -138,6 +138,15 @@ export const TourEditForm = () => {
 				tourPriceApi.delete(data.id ?? '', id)
 			})
 		}
+
+		tourApi.edit({
+			id: data.id,
+            name: data.name ?? '',
+            description: data.description ?? '',
+            countryId: data.countryId ?? '',
+            cityId: data.cityId ?? '',
+            categoryId: data.categoryId ?? ''
+		})
 	}
 
 	const handleDeletePrice = (id: string) => {
