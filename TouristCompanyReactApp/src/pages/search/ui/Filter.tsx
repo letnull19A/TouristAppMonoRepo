@@ -1,3 +1,4 @@
+import { ticketApi } from '@api'
 import { CountryDropdown } from '@ui'
 import { Calendar } from 'primereact/calendar'
 import { Dropdown } from 'primereact/dropdown'
@@ -6,10 +7,42 @@ import {
 	InputNumberValueChangeEvent
 } from 'primereact/inputnumber'
 import { Nullable } from 'primereact/ts-helpers'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+
+const AirportsDropdown = () => {
+	const [airports, setAirports] = useState<Array<string>>([])
+	const [selected, setSelected] = useState<string>()
+
+	useEffect(() => {
+
+		const origin = Array<string>()
+		
+		ticketApi.airports
+			.getAll()
+			.then((response) => response.json())
+			.then((response) =>
+				response.map((r) => {
+					console.log(r);
+					origin.push(r.city + ', ' + r.name)
+				})
+			)
+
+		if (airports.length === 0) {
+			setAirports(origin)
+		}
+	}, [airports.length])
+
+	return (
+		<Dropdown
+			value={selected}
+			onChange={(e) => setSelected(e.target.value)}
+			options={airports}
+		/>
+	)
+}
 
 export const Filter = () => {
-	const [dates, setDates] = useState<Nullable<(Date | null)[]>>(null)
+	const [dates, setDates] = useState<Nullable<Date | null>>(null)
 	const [value3, setValue3] = useState<number>(1)
 	const [value1, setValue1] = useState<number>(1)
 
@@ -18,7 +51,7 @@ export const Filter = () => {
 			<div className="flex flex-column lg:flex-row justify-content-between gap-3">
 				<div className="flex flex-column gap-2 col-12 lg:col-3 p-0">
 					<label>Город вылета</label>
-					<Dropdown options={['Москва', 'Ульяновск', 'Санкт-Петербург']} />
+					<AirportsDropdown />
 				</div>
 				<div className="flex flex-column gap-2">
 					<label>Страна назначения</label>
@@ -29,12 +62,12 @@ export const Filter = () => {
 					<Calendar
 						value={dates}
 						onChange={(e) => setDates(e.value)}
-						selectionMode="range"
+						selectionMode="single"
 						readOnlyInput
 						hideOnRangeSelection
 					/>
 				</div>
-				<div className='col-12 lg:col-4 p-0 flex flex-row gap-3'>
+				<div className="col-12 lg:col-4 p-0 flex flex-row gap-3">
 					<div className="flex flex-column gap-2 col-5 p-0">
 						<label>Кол-во человек</label>
 						<InputNumber
@@ -52,7 +85,7 @@ export const Filter = () => {
 							incrementButtonIcon="pi pi-plus"
 							decrementButtonIcon="pi pi-minus"
 							mode="decimal"
-							/>
+						/>
 					</div>
 					<div className="flex flex-column gap-2 col-5 p-0">
 						<label>Кол-во дней</label>
