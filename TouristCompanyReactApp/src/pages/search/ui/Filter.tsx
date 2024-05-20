@@ -21,7 +21,7 @@ const AirportsDropdown = () => {
 			.getAll()
 			.then((response) => response.json())
 			.then((response) =>
-				response.map((r) => {
+				response.map((r: { city: string, name: string }) => {
 					console.log(r);
 					origin.push(r.city + ', ' + r.name)
 				})
