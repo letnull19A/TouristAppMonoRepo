@@ -17,8 +17,8 @@ const getById = async (id: string): Promise<TUser> => {
 	return data
 }
 
-const create = async (data: TAddUser): Promise<void> => {
-	await fetch(`${import.meta.env.VITE_API_URI}/api/user`, {
+const create = async (data: TAddUser): Promise<Response> => {
+	return await fetch(`${import.meta.env.VITE_API_URI}/api/user`, {
 		method: 'POST',
 		body: JSON.stringify({ ...data }),
 		headers: {

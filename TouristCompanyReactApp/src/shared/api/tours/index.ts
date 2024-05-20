@@ -10,8 +10,8 @@ const getAll = async (): Promise<Array<TTour>> => {
 	return data
 }
 
-const create = async (data: TAddTourForm): Promise<void> => {
-	await fetch(`${import.meta.env.VITE_API_URI}/api/tour`, {
+const create = async (data: TAddTourForm): Promise<Response> => {
+	return await fetch(`${import.meta.env.VITE_API_URI}/api/tour`, {
 		method: 'POST',
 		body: JSON.stringify({ ...data }),
 		headers: { 'Content-Type': 'application/json' }

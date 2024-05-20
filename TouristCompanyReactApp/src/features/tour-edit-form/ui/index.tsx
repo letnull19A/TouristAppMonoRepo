@@ -4,9 +4,12 @@ import {
 	countryApi,
 	hotelApi,
 	hotelTourApi,
-	tourApi
+	tourApi,
+	tourPriceApi
 } from '@api'
+import { AddPriceTourContext } from '@contexts'
 import {
+	TAddPriceTour,
 	TCategory,
 	TCity,
 	TCountry,
@@ -14,10 +17,11 @@ import {
 	THotel,
 	TTour
 } from '@entities'
+import { TourAddPricesForm } from '@features'
 import {
-	CountryDropdown,
-	CityDropdown,
 	CategoryDropdown,
+	CityDropdown,
+	CountryDropdown,
 	HotelDropdown
 } from '@ui'
 import { Button } from 'primereact/button'
@@ -29,13 +33,17 @@ import { Controller, useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
 export const TourEditForm = () => {
-	const { edit, getById } = tourApi
+	const { getById } = tourApi
 	const [tourData, setTourData] = useState<TTour>()
 	const [category, setCategory] = useState<TCategory>()
 	const [country, setCountry] = useState<TCountry>()
 	const [city, setCity] = useState<TCity>()
 	const [hotel, setHotel] = useState<THotel>()
 	const [currentHotel, setCurrentHotel] = useState<THotel>()
+	const [fields, setFields] = useState<Array<TAddPriceTour>>()
+	const [editedList, setEditedList] = useState<Set<string>>(new Set<string>())
+	const [addedList, setAddedList] = useState<Set<string>>(new Set<string>())
+	const [deleteList, setDeleteList] = useState<Set<string>>(new Set<string>())
 
 	const { id } = useParams()
 
@@ -65,6 +73,8 @@ export const TourEditForm = () => {
 					})
 				}
 			})
+
+			tourPriceApi.getAll(tourData.id).then(setFields)
 		}
 	}, [id, tourData])
 
@@ -89,15 +99,11 @@ export const TourEditForm = () => {
 			return
 
 		if (hotel === undefined) {
-			console.log(1)
-
 			hotelTourApi.create({
 				tourId: data.id,
 				hotelId: currentHotel?.id
 			})
 		} else {
-			console.log(2)
-
 			hotelTourApi.edit({
 				hotelId: data.id,
 				tourId: hotel.id,
@@ -105,14 +111,65 @@ export const TourEditForm = () => {
 			})
 		}
 
-		edit({
-			id: data.id,
-			name: data.name ?? '',
-			description: data.description ?? '',
-			cityId: data.cityId ?? '',
-			countryId: data.countryId ?? '',
-			categoryId: data.categoryId ?? ''
-		})
+		if (addedList.size > 0) {
+			addedList.forEach((id) => {
+				tourPriceApi.create({
+					id: data.id ?? '',
+					tourId: data.id ?? '',
+					price: fields?.find((field) => field.id === id)?.price ?? 0,
+					days: fields?.find((field) => field.id === id)?.days ?? 0
+				})
+			})
+		}
+
+		if (editedList.size > 0) {
+			editedList.forEach((id) => {
+				tourPriceApi.edit({
+					tourId: data.id ?? '',
+					price: fields?.find((field) => field.id === id)?.price ?? 0,
+					days: fields?.find((field) => field.id === id)?.days ?? 0,
+					id: id
+				})
+			})
+		}
+
+		if (deleteList.size > 0) {
+			deleteList.forEach((id) => {
+				tourPriceApi.delete(data.id ?? '', id)
+			})
+		}
+	}
+
+	const handleDeletePrice = (id: string) => {
+		if (addedList.has(id)) {
+			const addList = addedList
+			addList.delete(id)
+			setAddedList(addList)
+		} else {
+			const origin = deleteList
+			origin.add(id)
+			setDeleteList(origin)
+		}
+
+		if (editedList.has(id)) {
+			const origin = editedList
+			origin.delete(id)
+			setEditedList(origin)
+		}
+	}
+
+	const handleEditPrice = (data: TAddPriceTour) => {
+		if (addedList.has(data.id)) return
+
+		const origin = editedList
+		origin.add(data.id)
+		setEditedList(origin)
+	}
+
+	const handleAppendPrice = (data: TAddPriceTour) => {
+		const origin = addedList
+		origin.add(data.id)
+		setAddedList(origin)
 	}
 
 	return (
@@ -221,7 +278,21 @@ export const TourEditForm = () => {
 						</div>
 					)}
 				/>
-				<Button label="Подтвердить" type="submit" icon="pi pi-check" />
+				<AddPriceTourContext.Provider
+					value={{ fields: fields ?? [], setFields: setFields }}
+				>
+					<TourAddPricesForm
+						onDelete={handleDeletePrice}
+						onEdit={handleEditPrice}
+						onAppend={handleAppendPrice}
+					/>
+				</AddPriceTourContext.Provider>
+				<Button
+					className="mt-4"
+					label="Подтвердить"
+					type="submit"
+					icon="pi pi-check"
+				/>
 			</form>
 		)
 	)

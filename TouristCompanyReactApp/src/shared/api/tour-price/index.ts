@@ -15,8 +15,8 @@ const getById = async (baseId: string, id: string): Promise<TTourPrice> => {
 	}).then((response) => response.json())
 }
 
-const create = async (data: TAddTourPriceForm): Promise<void> => {
-	await fetch(`${import.meta.env.VITE_API_URI}/api/tour/${data.id}/price`, {
+const create = async (data: TAddTourPriceForm): Promise<Response> => {
+	return await fetch(`${import.meta.env.VITE_API_URI}/api/tour/${data.id}/price`, {
 		method: 'POST',
 		body: JSON.stringify({ ...data }),
 		headers: { 'Content-Type': 'application/json' }
@@ -24,7 +24,7 @@ const create = async (data: TAddTourPriceForm): Promise<void> => {
 }
 
 const edit = async (data: TEditTourPriceForm) => {
-	await fetch(`${import.meta.env.VITE_API_URI}/api/tour/${data.tourId}/${data.id}`, {
+	await fetch(`${import.meta.env.VITE_API_URI}/api/tour/${data.tourId}/price/${data.id}`, {
 		method: 'PUT',
 		body: JSON.stringify(data),
 		headers: { 'Content-Type': 'application/json' }
@@ -32,7 +32,7 @@ const edit = async (data: TEditTourPriceForm) => {
 }
 
 const removePrice = async (baseId: string, id: string) => {
-	await fetch(`${import.meta.env.VITE_API_URI}/api/tour/${baseId}/${id}`, {
+	await fetch(`${import.meta.env.VITE_API_URI}/api/tour/${baseId}/price/${id}`, {
 		method: 'DELETE'
 	})
 }

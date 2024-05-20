@@ -2,6 +2,7 @@ import { tourPriceApi } from '@api'
 import { Card } from 'primereact/card'
 import { useEffect, useState } from 'react'
 import { TTourPrice } from '@entities'
+import './style.css'
 
 type TTourPricesProps = {
 	tourId: string
@@ -18,11 +19,22 @@ export const TourPrices = (props: TTourPricesProps) => {
 
 	return (
 		<Card title="Расценки на туры">
-			<ul className='list-none p-0'>
-				{prices.map((price) => (
-					<li className='my-3'>Количество дней: {price.days} Стоимость: {price.price} Руб.</li>
-				))}
-			</ul>
+			<table>
+				<thead>
+					<tr>
+						<th>Количество дней</th>
+						<th>Стоимость</th>
+					</tr>
+				</thead>
+				<tbody>
+					{prices.map((price) => (
+						<tr>
+							<td className='days'>{price.days}</td>
+							<td className='price'>{price.price} Руб.</td>
+						</tr>
+					))}
+				</tbody>
+			</table>
 		</Card>
 	)
 }

@@ -1,0 +1,142 @@
+{
+	"countries": [
+		{
+			"id": 1,
+			"name": "Россия"
+		},
+		{
+			"id": 2,
+			"name": "Турция"
+		},
+		{
+			"id": 3,
+			"name": "Италия"
+		},
+		{
+			"id": 4,
+			"name": "Германия"
+		},
+		{
+			"id": 5,
+			"name": "Франция"
+		}
+	],
+	"airports": [
+		{
+			"id": 1,
+			"city": "Москва",
+			"name": "Домодедово",
+			"countryId": 1
+		},
+		{
+			"id": 2,
+			"city": "Москва",
+			"name": "Внуково",
+			"countryId": 1
+		},
+		{
+			"id": 3,
+			"city": "Санкт-Петербург",
+			"name": "Пулково",
+			"countryId": 1
+		}
+	],
+	"tickets": [
+		{
+			"id": 1,
+			"airportId": 1,
+			"price": 10000,
+			"countryDistanation": 2,
+			"dateOfDeparture": 1712088000000,
+			"dateOfArrival": 1722801600000
+		},
+		{
+			"id": 2,
+			"airportId": 2,
+			"price": 20000,
+			"countryDistanation": 2,
+			"dateOfDeparture": 1704744000000,
+			"dateOfArrival": 1704830400000
+		},
+		{
+			"id": 3,
+			"airportId": 3,
+			"price": 15000,
+			"countryDistanation": 3,
+			"dateOfDeparture": 1714680000000,
+			"dateOfArrival": 1714766400000
+		},
+		{
+			"id": 4,
+			"airportId": 1,
+			"price": 18000,
+			"countryDistanation": 4,
+			"dateOfDeparture": 1717272000000,
+			"dateOfArrival": 1717358400000
+		},
+		{
+			"id": 5,
+			"airportId": 2,
+			"price": 22000,
+			"countryDistanation": 5,
+			"dateOfDeparture": 1707336000000,
+			"dateOfArrival": 1707422400000
+		},
+		{
+			"id": 6,
+			"airportId": 3,
+			"price": 25000,
+			"countryDistanation": 4,
+			"dateOfDeparture": 1720137600000,
+			"dateOfArrival": 1720224000000
+		},
+		{
+			"id": 7,
+			"airportId": 1,
+			"price": 17000,
+			"countryDistanation": 3,
+			"dateOfDeparture": 1725427200000,
+			"dateOfArrival": 1725513600000
+		},
+		{
+			"id": 8,
+			"airportId": 2,
+			"price": 21000,
+			"countryDistanation": 5,
+			"dateOfDeparture": 1727856000000,
+			"dateOfArrival": 1727942400000
+		},
+		{
+			"id": 9,
+			"airportId": 3,
+			"price": 26000,
+			"countryDistanation": 2,
+			"dateOfDeparture": 1728504000000,
+			"dateOfArrival": 1728590400000
+		},
+		{
+			"id": 10,
+			"airportId": 1,
+			"price": 23000,
+			"countryDistanation": 4,
+			"dateOfDeparture": 1724769600000,
+			"dateOfArrival": 1724856000000
+		},
+		{
+			"id": 11,
+			"airportId": 2,
+			"price": 19000,
+			"countryDistanation": 3,
+			"dateOfDeparture": 1726732800000,
+			"dateOfArrival": 1726819200000
+		},
+		{
+			"id": 12,
+			"airportId": 3,
+			"price": 28000,
+			"countryDistanation": 5,
+			"dateOfDeparture": 1730323200000,
+			"dateOfArrival": 1730409600000
+		}
+	]
+}

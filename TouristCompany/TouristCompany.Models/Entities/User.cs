@@ -34,6 +34,11 @@ public sealed class User
     [EmailAddress]
     [Column("email")]
     public string Email { get; set; } = string.Empty;
+    
+    [Required]
+    [MaxLength(32)]
+    [Column("login")]
+    public string Login { get; set; } = string.Empty;
 
     [Required]
     [MaxLength(64)]

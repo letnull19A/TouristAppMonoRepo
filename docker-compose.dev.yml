@@ -12,6 +12,7 @@ services:
       - pgadmin
       - frontend
       - backend
+      - tickets
     networks:
       network:
         ipv4_address: 22.98.1.22
@@ -80,6 +81,14 @@ services:
     networks:
       network:
         ipv4_address: 22.98.1.64
+
+  tickets:
+    build: ./TouristCompanyAviaTickets
+    ports:
+      - '7865:7865'
+    networks:
+      network:
+        ipv4_address: 22.98.1.99
 
 volumes:
   postgres-data:
