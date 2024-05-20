@@ -27,7 +27,7 @@ services:
     environment:
       - POSTGRES_DB=voyage-db
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_PASSWORD=egor_letow
       - MAX_LOGIN_ATTEMPTS=0
     networks:
       network:
