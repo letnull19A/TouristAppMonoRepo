@@ -72,6 +72,11 @@ public class SearchController(
             Category = categoryRepository.GetById(w.CategoryId).Adapt<CategoryLiteDto>()
         }).ToList();
 
+        if (string.IsNullOrEmpty(search))
+        {
+            return Ok(result);
+        }
+
         var tickets = GetTicketsByAirportId(airportId);
         var countriesApi = GetAllCounties().Result;
         var airportsApi = GetAllAirports().Result;
