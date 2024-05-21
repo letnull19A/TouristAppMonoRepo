@@ -21,7 +21,7 @@ export const DefaultLayout = (props: { children: ReactNode }) => {
 					{context.isAuth() ? (
 						<div className="flex flex-row gap-3">
 							<Avatar label={context.data?.firstName[0]} size="large" />
-							<div className='flex flex-column'>
+							<div className="flex flex-column">
 								<span>
 									{context.data?.firstName} {context.data?.lastName}
 								</span>
@@ -30,6 +30,7 @@ export const DefaultLayout = (props: { children: ReactNode }) => {
 							{context.data?.role === 'Администратор' ? (
 								<Button
 									link
+									icon="pi pi-sliders-h"
 									label="Панель управления"
 									onClick={() => navigate('/tour/list')}
 								/>
