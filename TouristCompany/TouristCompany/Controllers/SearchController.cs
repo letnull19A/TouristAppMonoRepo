@@ -39,8 +39,11 @@ public class SearchController(
     IRepository<Category> categoryRepository) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> Search(string? search, int airportId)
+    public async Task<IActionResult> Search(string? search)
     {
+
+        int airportId = 0;
+        
         var tours = tourRepository.GetAll();
         var countries = countryRepository.GetAll();
         var cities = cityRepository.GetAll();
