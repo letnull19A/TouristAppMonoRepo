@@ -1,61 +1,71 @@
 import { ticketApi } from '@api'
+import { SearchContext } from '@contexts'
+import { TAirport } from '@entities'
 import { CountryDropdown } from '@ui'
 import { Calendar } from 'primereact/calendar'
-import { Dropdown } from 'primereact/dropdown'
+import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown'
 import {
 	InputNumber,
 	InputNumberValueChangeEvent
 } from 'primereact/inputnumber'
 import { Nullable } from 'primereact/ts-helpers'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
-const AirportsDropdown = () => {
-	const [airports, setAirports] = useState<Array<string>>([])
-	const [selected, setSelected] = useState<string>()
+type TAirportsDropdownProps = {
+	defaultValue?: TAirport
+	onChange?: (e: DropdownChangeEvent) => void
+}
+
+const AirportsDropdown = (props: TAirportsDropdownProps) => {
+	const { onChange, defaultValue } = props
+
+	const [airports, setAirports] = useState<Array<TAirport>>([])
+	const [selected, setSelected] = useState<TAirport | null>(null)
 
 	useEffect(() => {
-
-		const origin = Array<string>()
-		
-		ticketApi.airports
-			.getAll()
-			.then((response) => response.json())
-			.then((response) =>
-				response.map((r: { city: string, name: string }) => {
-					console.log(r);
-					origin.push(r.city + ', ' + r.name)
-				})
-			)
-
-		if (airports.length === 0) {
-			setAirports(origin)
-		}
-	}, [airports.length])
+		ticketApi.airports.getAll().then(setAirports)
+		setSelected(defaultValue ?? null)
+	}, [defaultValue])
 
 	return (
 		<Dropdown
 			value={selected}
-			onChange={(e) => setSelected(e.target.value)}
+			onChange={(e) => {
+				setSelected(e.target.value)
+				onChange?.(e)
+			}}
 			options={airports}
+			optionLabel="city"
+			placeholder="Выберете аэропорт"
 		/>
 	)
 }
 
 export const Filter = () => {
 	const [dates, setDates] = useState<Nullable<Date | null>>(null)
-	const [value3, setValue3] = useState<number>(1)
-	const [value1, setValue1] = useState<number>(1)
+	const [humans, setHumans] = useState<number>(1)
+	const [days, setDays] = useState<number>(1)
+
+	const context = useContext(SearchContext)
 
 	return (
 		<>
 			<div className="flex flex-column lg:flex-row justify-content-between gap-3">
 				<div className="flex flex-column gap-2 col-12 lg:col-3 p-0">
 					<label>Город вылета</label>
-					<AirportsDropdown />
+					<AirportsDropdown
+						onChange={(e) => {
+							context.setAirportId(e.target.value)
+						}}
+					/>
 				</div>
 				<div className="flex flex-column gap-2">
 					<label>Страна назначения</label>
-					<CountryDropdown />
+					<CountryDropdown
+						onChange={(e) => {
+							context.setCountry(e.target.value)
+						}}
+					/>
 				</div>
 				<div className="flex flex-column gap-2">
 					<label>Дата вылета</label>
@@ -71,10 +81,10 @@ export const Filter = () => {
 					<div className="flex flex-column gap-2 col-5 p-0">
 						<label>Кол-во человек</label>
 						<InputNumber
-							value={value3}
+							value={humans}
 							inputStyle={{ width: '100%' }}
 							onValueChange={(e: InputNumberValueChangeEvent) =>
-								setValue3(e.target.value ?? 0)
+								setHumans(e.target.value ?? 0)
 							}
 							showButtons
 							buttonLayout="horizontal"
@@ -90,10 +100,10 @@ export const Filter = () => {
 					<div className="flex flex-column gap-2 col-5 p-0">
 						<label>Кол-во дней</label>
 						<InputNumber
-							value={value1}
+							value={days}
 							inputStyle={{ width: '100%' }}
 							onValueChange={(e: InputNumberValueChangeEvent) =>
-								setValue1(e.target.value ?? 0)
+								setDays(e.target.value ?? 0)
 							}
 							showButtons
 							buttonLayout="horizontal"

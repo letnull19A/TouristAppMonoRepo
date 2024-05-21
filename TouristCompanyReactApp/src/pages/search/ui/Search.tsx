@@ -12,8 +12,10 @@ export const Search = () => {
 
     const handleSearch = async () => {
         if (inputRef === null || inputRef.current === null) return
+
+        console.log(context.airport, context.country)
         
-        const result = await (await search(inputRef.current?.value)).json()
+        const result = await (await search(inputRef.current?.value, context.airport?.id ?? '')).json()
 
         if (result) {   
             console.log(result)
