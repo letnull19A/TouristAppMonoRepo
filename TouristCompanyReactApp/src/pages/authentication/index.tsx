@@ -1,8 +1,12 @@
+import { authApi } from '@api'
+import { AuthContext } from '@contexts'
 import { Button } from 'primereact/button'
 import { Card } from 'primereact/card'
 import { InputText } from 'primereact/inputtext'
 import { classNames } from 'primereact/utils'
+import { useContext } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
 type TForm = {
 	login: string
@@ -15,11 +19,36 @@ export const Authentication = () => {
 		password: ''
 	}
 
-	const { control } = useForm({ defaultValues })
+	const context = useContext(AuthContext)
+	const navigation = useNavigate()
+
+	const { control, handleSubmit } = useForm({ defaultValues })
+
+	const onSubmit = (data: TForm) => {
+		authApi(data)
+			.then((result) => result.json())
+			.then((result) => {
+				context.setData(result)
+				localStorage.setItem('userData', JSON.stringify(result))
+
+				context.setIsAuth(true)
+
+				if (result.role === 'Пользователь') {
+					console.log(1)
+
+					navigation('/')
+				}
+				if (result.role === 'Администратор') {
+					console.log(2)
+
+					navigation('/tour/list')
+				}
+			})
+	}
 
 	return (
-		<div className='w-full h-screen flex align-items-center justify-content-center'>
-			<form className="w-3">
+		<div className="w-full h-screen flex align-items-center justify-content-center">
+			<form className="w-3" onSubmit={handleSubmit(onSubmit)}>
 				<Card title="Войти">
 					<Controller
 						name="login"
@@ -50,7 +79,9 @@ export const Authentication = () => {
 								<span className="p-float-label">
 									<InputText
 										id={field.name}
-										className={classNames({ 'p-invalid': fieldState.error }) + ' w-12'}
+										className={
+											classNames({ 'p-invalid': fieldState.error }) + ' w-12'
+										}
 										onChange={(e) => field.onChange(e.target.value)}
 										type="password"
 									/>

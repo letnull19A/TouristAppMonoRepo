@@ -1,8 +1,10 @@
-import { useRef } from 'react'
+import { useContext, useRef } from 'react'
 import { Avatar } from 'primereact/avatar'
 import { Ripple } from 'primereact/ripple'
 import { StyleClass } from 'primereact/styleclass'
 import { SideBarItem } from './../../sidebar-item'
+import { confirmDialog } from 'primereact/confirmdialog'
+import { AuthContext } from '@contexts'
 
 export function SideBar() {
 	const btnRef1 = useRef(null)
@@ -12,6 +14,20 @@ export function SideBar() {
 	const btnRef7 = useRef(null)
 	const btnRef8 = useRef(null)
 	const btnRef9 = useRef(null)
+
+	const context = useContext(AuthContext)
+
+	const confirm2 = () => {
+		confirmDialog({
+			message: `Вы действительно хотите выйти?`,
+			header: 'Подтверждение действий',
+			icon: 'pi pi-info-circle',
+			defaultFocus: 'reject',
+			rejectLabel: 'Нет',
+			acceptLabel: 'Да',
+			accept: () => context.logout()
+		})
+	}
 
 	return (
 		<div
@@ -253,7 +269,7 @@ export function SideBar() {
 					</div>
 					<div className="mt-auto">
 						<hr className="mb-3 mx-3 border-top-1 border-none surface-border" />
-						<a className="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+						<a onClick={confirm2} className="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
 							<Avatar image="/settings.png" shape="circle" />
 							<span className="font-bold">Администратор</span>
 						</a>
