@@ -5,7 +5,7 @@ export const ticketApi = {
 		getAll: async (): Promise<Array<TAirport>> =>
 			(
 				await fetch(`${import.meta.env.VITE_API_URI}/api/tickets/airports`)
-			).json()
+			).json(),
 	},
 	countries: {
 		getAll: async (): Promise<Response> =>
