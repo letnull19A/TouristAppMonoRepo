@@ -48,7 +48,7 @@ export const Authentication = () => {
 
 	return (
 		<div className="w-full h-screen flex align-items-center justify-content-center">
-			<form className="w-3" onSubmit={handleSubmit(onSubmit)}>
+			<form className="col-12 sm:col-8 md:col-6 lg:col-5 lg:max-w-28rem" onSubmit={handleSubmit(onSubmit)}>
 				<Card title="Войти">
 					<Controller
 						name="login"
