@@ -17,49 +17,52 @@ export const DefaultLayout = (props: { children: ReactNode }) => {
 				className="flex justify-content-center"
 				style={{ width: '100%', height: '64px', backgroundColor: '' }}
 			>
-				<div className="col-12 xl:col-9">
-					{context.isAuth() ? (
-						<div className="flex flex-row gap-3">
-							<Avatar label={context.data?.firstName[0]} size="large" />
-							<div className="flex flex-column">
-								<span>
-									{context.data?.firstName} {context.data?.lastName}
-								</span>
-								<span>{context.data?.role}</span>
-							</div>
-							{context.data?.role === 'Администратор' ? (
+				<div className="col-12 xl:col-9 flex flex-row align-items-center justify-content-between">
+					<img onClick={() => navigate('/')} style={{ width: '150px' }} src="/logo.svg" />
+					<div>
+						{context.isAuth() ? (
+							<div className="flex flex-row gap-3">
+								<Avatar label={context.data?.firstName[0]} size="large" />
+								<div className="flex flex-column">
+									<span>
+										{context.data?.firstName} {context.data?.lastName}
+									</span>
+									<span>{context.data?.role}</span>
+								</div>
+								{context.data?.role === 'Администратор' ? (
+									<Button
+										link
+										icon="pi pi-sliders-h"
+										label="Панель управления"
+										onClick={() => navigate('/tour/list')}
+									/>
+								) : null}
 								<Button
+									icon="pi pi-sign-out"
 									link
-									icon="pi pi-sliders-h"
-									label="Панель управления"
-									onClick={() => navigate('/tour/list')}
+									label="Выйти"
+									onClick={() => context.logout()}
 								/>
-							) : null}
-							<Button
-								icon="pi pi-sign-out"
-								link
-								label="Выйти"
-								onClick={() => context.logout()}
-							/>
-						</div>
-					) : (
-						<>
-							<Button
-								text
-								icon="pi pi-user"
-								label="Войти в аккаунт"
-								link
-								onClick={() => navigate('/auth')}
-							/>
-							<Button
-								text
-								icon="pi pi-key"
-								label="Регистрация"
-								link
-								onClick={() => navigate('/registration')}
-							/>
-						</>
-					)}
+							</div>
+						) : (
+							<>
+								<Button
+									text
+									icon="pi pi-user"
+									label="Войти в аккаунт"
+									link
+									onClick={() => navigate('/auth')}
+								/>
+								<Button
+									text
+									icon="pi pi-key"
+									label="Регистрация"
+									link
+									onClick={() => navigate('/registration')}
+								/>
+							</>
+						)}
+					</div>
 				</div>
 			</div>
 			<div className="flex justify-content-center" style={{ width: '100%' }}>
