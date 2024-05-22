@@ -50,7 +50,7 @@ export const Authentication = () => {
 
 	return (
 		<div className="w-full h-screen flex align-items-center flex-column justify-content-center">
-			<img onClick={() => navigate('/')} className='m-0-auto mb-4 w-3' src="/logo.svg"/>
+			<img onClick={() => navigate('/')} className='m-0-auto mb-4 w-7 sm:w-4 md:w-3 lg:w-2' src="/logo.svg"/>
 			<form className="col-12 sm:col-8 md:col-6 lg:col-5 lg:max-w-28rem" onSubmit={handleSubmit(onSubmit)}>
 				<Card title="Войти">
 					<Controller
