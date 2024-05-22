@@ -4,6 +4,7 @@ import { Card } from 'primereact/card'
 import { InputText } from 'primereact/inputtext'
 import { classNames } from 'primereact/utils'
 import { Controller, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
 type TForm = {
 	name: string
@@ -44,9 +45,12 @@ export const Registration = () => {
 		})
 	}
 
+	const navigate = useNavigate()
+
 	return (
-		<div className="w-full h-screen flex align-items-center justify-content-center">
-			<form className="col-12 sm:col-8 md:col-6 lg:col-5 lg:max-w-28rem" onSubmit={handleSubmit(onSubmit)}>
+		<div className="w-full h-screen flex align-items-center flex-column justify-content-center">
+			<img onClick={() => navigate('/')} className='m-0-auto mb-4 w-3' src="/logo.svg"/>
+			<form className="col-12 sm:col-8 md:col-6 lg:col-5 lg:max-w-28rem mt-5" onSubmit={handleSubmit(onSubmit)}>
 				<Card title="Регистрация">
 					<Controller
 						name="name"
