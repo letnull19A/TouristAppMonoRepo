@@ -1,3 +1,4 @@
+import { registrationApi } from '@api'
 import { Button } from 'primereact/button'
 import { Card } from 'primereact/card'
 import { InputText } from 'primereact/inputtext'
@@ -11,6 +12,7 @@ type TForm = {
 	email: string
 	login: string
 	password: string
+	rePassword: string
 }
 
 export const Registration = () => {
@@ -20,14 +22,31 @@ export const Registration = () => {
 		name: '',
 		surname: '',
 		fatherName: '',
-		email: ''
+		email: '',
+		rePassword: ''
 	}
 
-	const { control } = useForm({ defaultValues })
+	const { control, handleSubmit, formState } = useForm({ defaultValues })
+
+	const onSubmit = (data: TForm) => {
+		if (data.password !== data.rePassword) {
+			alert('Пароли не совпадают!')
+			return
+		}
+
+		registrationApi({
+			email: data.email,
+			firstName: data.name,
+			lastName: data.surname,
+			patronymic: data.fatherName,
+			password: data.password,
+			confirmPassword: data.rePassword
+		})
+	}
 
 	return (
 		<div className="w-full h-screen flex align-items-center justify-content-center">
-			<form className="w-3">
+			<form className="w-3" onSubmit={handleSubmit(onSubmit)}>
 				<Card title="Регистрация">
 					<Controller
 						name="name"
@@ -45,6 +64,9 @@ export const Registration = () => {
 									/>
 									<label htmlFor={field.name}>Ваше имя</label>
 								</span>
+								{fieldState.error ? (
+									<span>{fieldState.error.message}</span>
+								) : null}
 							</div>
 						)}
 					/>
@@ -64,13 +86,16 @@ export const Registration = () => {
 									/>
 									<label htmlFor={field.name}>Ваша фамилия</label>
 								</span>
+								{fieldState.error ? (
+									<span>{fieldState.error.message}</span>
+								) : null}
 							</div>
 						)}
 					/>
 					<Controller
 						name="fatherName"
 						control={control}
-						render={({ field }) => (
+						render={({ field, fieldState }) => (
 							<div className="my-5">
 								<label htmlFor={field.name}></label>
 								<span className="p-float-label">
@@ -79,8 +104,13 @@ export const Registration = () => {
 										style={{ width: '100%' }}
 										onChange={(e) => field.onChange(e.target.value)}
 									/>
-									<label htmlFor={field.name}>Ваше отчество (при наличии)</label>
+									<label htmlFor={field.name}>
+										Ваше отчество (при наличии)
+									</label>
 								</span>
+								{fieldState.error ? (
+									<span>{fieldState.error.message}</span>
+								) : null}
 							</div>
 						)}
 					/>
@@ -101,6 +131,9 @@ export const Registration = () => {
 									/>
 									<label htmlFor={field.name}>Ваш E-Mail</label>
 								</span>
+								{fieldState.error ? (
+									<span>{fieldState.error.message}</span>
+								) : null}
 							</div>
 						)}
 					/>
@@ -120,6 +153,9 @@ export const Registration = () => {
 									/>
 									<label htmlFor={field.name}>Ваш логин</label>
 								</span>
+								{fieldState.error ? (
+									<span>{fieldState.error.message}</span>
+								) : null}
 							</div>
 						)}
 					/>
@@ -133,17 +169,22 @@ export const Registration = () => {
 								<span className="p-float-label">
 									<InputText
 										id={field.name}
-										className={classNames({ 'p-invalid': fieldState.error }) + ' w-12'}
+										className={
+											classNames({ 'p-invalid': fieldState.error }) + ' w-12'
+										}
 										onChange={(e) => field.onChange(e.target.value)}
 										type="password"
 									/>
 									<label htmlFor={field.name}>Ваш пароль</label>
 								</span>
+								{fieldState.error ? (
+									<span>{fieldState.error.message}</span>
+								) : null}
 							</div>
 						)}
 					/>
 					<Controller
-						name="password"
+						name="rePassword"
 						control={control}
 						rules={{ required: 'Введите пароль' }}
 						render={({ field, fieldState }) => (
@@ -152,16 +193,26 @@ export const Registration = () => {
 								<span className="p-float-label">
 									<InputText
 										id={field.name}
-										className={classNames({ 'p-invalid': fieldState.error }) + ' w-12'}
+										className={
+											classNames({ 'p-invalid': fieldState.error }) + ' w-12'
+										}
 										onChange={(e) => field.onChange(e.target.value)}
 										type="password"
 									/>
 									<label htmlFor={field.name}>Подтвердите пароль</label>
 								</span>
+								{fieldState.error ? (
+									<span>{fieldState.error.message}</span>
+								) : null}
 							</div>
 						)}
 					/>
-					<Button label="Зарегистрироваться" className="w-12 mt-5" value={'d'} />
+					<Button
+						disabled={!formState.isDirty || !formState.isValid}
+						label="Зарегистрироваться"
+						className="w-12 mt-5"
+						value={'d'}
+					/>
 				</Card>
 			</form>
 		</div>

@@ -26,6 +26,7 @@ namespace TouristCompany.Controllers
 
             return Ok(new
             {
+                result.Id,
                 result.Email,
                 result.FirstName,
                 result.LastName,

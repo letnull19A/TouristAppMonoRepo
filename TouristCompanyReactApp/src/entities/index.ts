@@ -10,6 +10,13 @@ export {
 } from './attraction'
 export { THotel, TAddHotelForm, TEditHotelForm } from './hotel'
 export { TTour, TAddTourForm, TEditTourForm } from './tour'
-export { TTourPrice, TAddTourPriceForm, TEditTourPriceForm, TAddPriceTour } from './tour-price'
+export {
+	TTourPrice,
+	TAddTourPriceForm,
+	TEditTourPriceForm,
+	TAddPriceTour
+} from './tour-price'
 export { THotelTour, TAddHotelTourForm, TEditHotelTourForm } from './hotel-tour'
 export { TAirport } from './airports'
+
+export { TAuthContext, TUserData, TAuthForm } from './auth'
