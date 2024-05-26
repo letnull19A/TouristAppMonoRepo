@@ -12,12 +12,12 @@ type HotelCardProps = {
 
 export const HotelCard = (props: HotelCardProps) => {
 	const { tourData } = props
-	const { name, description, country, city } = tourData
+	const { name, description, country, city, imageUrl } = tourData
 	const [stars, setStars] = useState<number>(0)
 
 	const navigate = useNavigate()
 
-	const header = <img alt="Card" src="https://primefaces.org/cdn/primereact/images/usercard.png" />
+	const header = <img alt="Card" src={`${import.meta.env.VITE_API_URI}/bucket/${imageUrl}`} />
 	const footer = (
 		<>
 			<Button onClick={() => navigate(`tour/${tourData.id}/view`)} label="Перейти" style={{ width: '100%' }} />
