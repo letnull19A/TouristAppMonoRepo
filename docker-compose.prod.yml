@@ -8,6 +8,7 @@ services:
     restart: always
     volumes:
       - './gateway/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
+      - '/mnt/tour-app-uploads:/mnt/Uploads'
     depends_on:
       - pgadmin
       - frontend
@@ -62,6 +63,7 @@ services:
       - postgres
     volumes:
       - './TouristCompany/TouristCompany/appsettings.json:/app/appsettings.json:ro'
+      - '/mnt/tour-app-uploads:/app/Uploads'
     environment:
       ASPNETCORE_URLS: http://+:4590
     networks:
