@@ -25,7 +25,7 @@ import {
 	HotelDropdown
 } from '@ui'
 import { Button } from 'primereact/button'
-import { FileUpload } from 'primereact/fileupload'
+import { FileUpload, FileUploadUploadEvent } from 'primereact/fileupload'
 import { InputText } from 'primereact/inputtext'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { classNames } from 'primereact/utils'
@@ -45,12 +45,17 @@ export const TourEditForm = () => {
 	const [editedList, setEditedList] = useState<Set<string>>(new Set<string>())
 	const [addedList, setAddedList] = useState<Set<string>>(new Set<string>())
 	const [deleteList, setDeleteList] = useState<Set<string>>(new Set<string>())
+	const [fileName, setFileName] = useState<string>()
 
 	const { id } = useParams()
 
 	useEffect(() => {
 		if (id !== undefined) getById(id).then((res: TTour) => setTourData(res))
 	}, [getById, id])
+
+	useEffect(() => {
+		setFileName(tourData?.imageUrl)
+	}, [tourData?.imageUrl])
 
 	useEffect(() => {
 		if (tourData !== undefined && tourData.id !== undefined) {
@@ -147,7 +152,7 @@ export const TourEditForm = () => {
             countryId: data.countryId ?? '',
             cityId: data.cityId ?? '',
             categoryId: data.categoryId ?? '',
-			imageUrl: data.imageUrl ?? ''
+			imageUrl: fileName ?? ''
 		})
 	}
 
@@ -183,8 +188,12 @@ export const TourEditForm = () => {
 		setAddedList(origin)
 	}
 
-	const onUpload = () => {
-		
+	const onUpload = (event: FileUploadUploadEvent) => {
+		if (event.xhr.status === 200) {
+			const response = JSON.parse(event.xhr.responseText)
+
+			setFileName(response.files[0].fileName)
+		}
 	}
 
 	return (
@@ -302,7 +311,7 @@ export const TourEditForm = () => {
 						onAppend={handleAppendPrice}
 					/>
 				</AddPriceTourContext.Provider>
-				<img src={`${import.meta.env.VITE_API_URI}/bucket/${tourData.imageUrl}`} className='mb-3'/>
+				<img src={`${import.meta.env.VITE_API_URI}/bucket/${fileName}`} className='mb-3'/>
 				<FileUpload
 					mode="basic"
 					name="files"
