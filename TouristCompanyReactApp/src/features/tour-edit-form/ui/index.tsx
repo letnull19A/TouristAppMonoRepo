@@ -25,6 +25,7 @@ import {
 	HotelDropdown
 } from '@ui'
 import { Button } from 'primereact/button'
+import { FileUpload } from 'primereact/fileupload'
 import { InputText } from 'primereact/inputtext'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { classNames } from 'primereact/utils'
@@ -145,7 +146,8 @@ export const TourEditForm = () => {
             description: data.description ?? '',
             countryId: data.countryId ?? '',
             cityId: data.cityId ?? '',
-            categoryId: data.categoryId ?? ''
+            categoryId: data.categoryId ?? '',
+			imageUrl: data.imageUrl ?? ''
 		})
 	}
 
@@ -179,6 +181,10 @@ export const TourEditForm = () => {
 		const origin = addedList
 		origin.add(data.id)
 		setAddedList(origin)
+	}
+
+	const onUpload = () => {
+		
 	}
 
 	return (
@@ -296,6 +302,16 @@ export const TourEditForm = () => {
 						onAppend={handleAppendPrice}
 					/>
 				</AddPriceTourContext.Provider>
+				<img src={`${import.meta.env.VITE_API_URI}/bucket/${tourData.imageUrl}`} className='mb-3'/>
+				<FileUpload
+					mode="basic"
+					name="files"
+					url={`${import.meta.env.VITE_API_URI}/api/files/upload`}
+					accept="image/*"
+					chooseLabel='Выберите файл для обложки (png, jpg, jpeg)'
+					maxFileSize={1000000}
+					onUpload={onUpload}
+				/>
 				<Button
 					className="mt-4"
 					label="Подтвердить"
