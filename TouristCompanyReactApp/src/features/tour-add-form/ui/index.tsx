@@ -10,6 +10,7 @@ import {
 import { TourAddPricesForm } from '@features'
 import { CategoryDropdown, CityDropdown, CountryDropdown } from '@ui'
 import { Button } from 'primereact/button'
+import { FileUpload, FileUploadUploadEvent } from 'primereact/fileupload'
 import { InputText } from 'primereact/inputtext'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { classNames } from 'primereact/utils'
@@ -24,8 +25,12 @@ export const TourAddForm = () => {
 		description: '',
 		countryId: '',
 		cityId: '',
-		categoryId: ''
+		categoryId: '',
+		imageUrl: ''
 	}
+
+	const [imageUploaded, setImageUploaded] = useState<boolean>(false)
+	const [fileName, setFileName] = useState<string>()
 
 	const {
 		control,
@@ -41,7 +46,8 @@ export const TourAddForm = () => {
 			categoryId: data.categoryId,
 			description: data.description,
 			countryId: data.countryId,
-			cityId: data.cityId
+			cityId: data.cityId,
+			imageUrl: fileName ?? ''
 		})
 			.then((response) => response.json())
 			.then((response) => {
@@ -63,6 +69,16 @@ export const TourAddForm = () => {
 		errors[name] ? (
 			<small className="p-error">{errors[name]?.message}</small>
 		) : null
+
+	const onUpload = (event: FileUploadUploadEvent) => {
+		if (event.xhr.status === 200) {
+			setImageUploaded(true)
+
+			const response = JSON.parse(event.xhr.responseText)
+
+			setFileName(response.files[0].fileName)
+		}
+	}
 
 	return (
 		<form
@@ -92,34 +108,53 @@ export const TourAddForm = () => {
 			<Controller
 				name="categoryId"
 				control={control}
+				rules={{ required: 'Не выбрана категория', minLength: 1 }}
 				render={({ field }) => (
-					<div className="mt-4">
-						<CategoryDropdown
-							onChange={(e) => field.onChange((e.target.value as TCategory).id)}
-						/>
-					</div>
+					<>
+						<label htmlFor={field.name}></label>
+						<div className="mt-4">
+							<CategoryDropdown
+								onChange={(e) =>
+									field.onChange((e.target.value as TCategory).id)
+								}
+							/>
+						</div>
+						{getFormErrorMessage(field.name)}
+					</>
 				)}
 			/>
 			<Controller
 				name="countryId"
 				control={control}
+				rules={{ required: 'Не выбрана страна', minLength: 1 }}
 				render={({ field }) => (
-					<div className="mt-4">
-						<CountryDropdown
-							onChange={(e) => field.onChange((e.target.value as TCountry).id)}
-						/>
-					</div>
+					<>
+						<label htmlFor={field.name}></label>
+						<div className="mt-4">
+							<CountryDropdown
+								onChange={(e) =>
+									field.onChange((e.target.value as TCountry).id)
+								}
+							/>
+						</div>
+						{getFormErrorMessage(field.name)}
+					</>
 				)}
 			/>
 			<Controller
 				name="cityId"
 				control={control}
+				rules={{ required: 'Не выбран город', minLength: 1 }}
 				render={({ field }) => (
-					<div className="mt-4">
-						<CityDropdown
-							onChange={(e) => field.onChange((e.target.value as TCity).id)}
-						/>
-					</div>
+					<>
+						<label htmlFor={field.name}></label>
+						<div className="mt-4">
+							<CityDropdown
+								onChange={(e) => field.onChange((e.target.value as TCity).id)}
+							/>
+						</div>
+						{getFormErrorMessage(field.name)}
+					</>
 				)}
 			/>
 			<Controller
@@ -146,6 +181,16 @@ export const TourAddForm = () => {
 			>
 				<TourAddPricesForm />
 			</AddPriceTourContext.Provider>
+			{!imageUploaded && <p>Не забудьте загрузить обложку</p>}
+			<FileUpload
+				mode="basic"
+				name="files"
+				url={`${import.meta.env.VITE_API_URI}/api/files/upload`}
+				accept="image/*"
+				chooseLabel="Выберите файл для обложки (png, jpg, jpeg)"
+				maxFileSize={1000000}
+				onUpload={onUpload}
+			/>
 			<Button
 				label="Подтвердить"
 				type="submit"
