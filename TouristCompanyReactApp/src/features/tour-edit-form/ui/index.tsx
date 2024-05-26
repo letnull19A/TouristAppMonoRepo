@@ -45,7 +45,6 @@ export const TourEditForm = () => {
 	const [editedList, setEditedList] = useState<Set<string>>(new Set<string>())
 	const [addedList, setAddedList] = useState<Set<string>>(new Set<string>())
 	const [deleteList, setDeleteList] = useState<Set<string>>(new Set<string>())
-	const [imageUploaded, setImageUploaded] = useState<boolean>(false)
 	const [fileName, setFileName] = useState<string>()
 
 	const { id } = useParams()
@@ -191,8 +190,6 @@ export const TourEditForm = () => {
 
 	const onUpload = (event: FileUploadUploadEvent) => {
 		if (event.xhr.status === 200) {
-			setImageUploaded(true)
-
 			const response = JSON.parse(event.xhr.responseText)
 
 			setFileName(response.files[0].fileName)
