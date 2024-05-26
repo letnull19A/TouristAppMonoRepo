@@ -31,6 +31,7 @@ export const TourAddForm = () => {
 
 	const [imageUploaded, setImageUploaded] = useState<boolean>(false)
 	const [fileName, setFileName] = useState<string>()
+	const [fields, setFields] = useState<Array<TAddPriceTour>>()
 
 	const {
 		control,
@@ -38,9 +39,17 @@ export const TourAddForm = () => {
 		formState: { errors }
 	} = useForm({ defaultValues })
 
-	const [fields, setFields] = useState<Array<TAddPriceTour>>()
-
 	const onSubmit = (data: TAddTourForm) => {
+
+		console.log({
+			name: data.name,
+			categoryId: data.categoryId,
+			description: data.description,
+			countryId: data.countryId,
+			cityId: data.cityId,
+			imageUrl: fileName ?? ''
+		});
+
 		create({
 			name: data.name,
 			categoryId: data.categoryId,
@@ -73,7 +82,7 @@ export const TourAddForm = () => {
 	const onUpload = (event: FileUploadUploadEvent) => {
 		if (event.xhr.status === 200) {
 			setImageUploaded(true)
-
+			
 			const response = JSON.parse(event.xhr.responseText)
 
 			setFileName(response.files[0].fileName)
