@@ -1,5 +1,4 @@
-﻿using System.IO.Compression;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using TouristCompany.Contexts;
 using File = TouristCompany.Models.Entities.File;
 

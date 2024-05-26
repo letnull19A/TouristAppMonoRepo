@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TouristCompany.Models.Entities;
+using File = TouristCompany.Models.Entities.File;
 
 namespace TouristCompany.Contexts
 {
@@ -16,6 +17,7 @@ namespace TouristCompany.Contexts
         public DbSet<Role> Roles { get; set; }
         public DbSet<TourPrice> Prices { get; set; }
         public DbSet<HotelTour> HotelTour { get; set; }
+        public DbSet<File>? Files { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
