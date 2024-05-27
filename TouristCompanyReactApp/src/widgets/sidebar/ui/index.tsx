@@ -42,7 +42,7 @@ export function SideBar() {
 					<div className="flex align-items-center justify-content-between px-4 pt-3 flex-shrink-0">
 						<span className="inline-flex align-items-center gap-2">
 							<span className="font-semibold text-2xl text-primary">
-								Админ. Панель
+								Панель администратора
 							</span>
 						</span>
 					</div>
