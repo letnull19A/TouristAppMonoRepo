@@ -22,3 +22,7 @@
 	width: 100%;
     background: linear-gradient(to bottom, transparent, #ffffff);
 }
+
+.p-card-footer {
+    padding: 0;
+}
