@@ -3,7 +3,8 @@
 }
 
 .card__description {
-	max-width: 110px;
+    height: 110px;
+	max-height: 110px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
