@@ -23,8 +23,21 @@
     background: linear-gradient(to bottom, transparent, #ffffff);
 }
 
+.p-card-title {
+    height: 96px;
+    overflow: hidden;
+}
+
+.p-card-content {
+    padding-bottom: 0;
+}
+
 .p-card {
-    border-radius: 25px;
+    border-radius: 10px;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+	-webkit-line-clamp: 5;
+	display: -webkit-box;
 }
 
 .p-card-footer {
