@@ -3,20 +3,22 @@
 }
 
 .card__description {
-    height: 110px;
+	height: 110px;
 	max-height: 110px;
+	width: 100%;
 	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-    position: relative;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 5;
+	display: -webkit-box;
+	position: relative;
 }
 
 .card__description::after {
-    content: '';
-    display: block;
-    position: absolute;
-    bottom: 0;
-    height: 30px;
-    width: 100%;
-    background-color: aqua;
+	content: '';
+	display: block;
+	position: absolute;
+	bottom: 0;
+	height: 30px;
+	width: 100%;
+	background-color: aqua;
 }
