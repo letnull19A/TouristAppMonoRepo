@@ -24,7 +24,8 @@
 }
 
 .p-card {
-    border-radius: 25px;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .p-card-footer {
