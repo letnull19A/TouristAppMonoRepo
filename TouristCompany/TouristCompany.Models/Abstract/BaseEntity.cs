@@ -11,7 +11,7 @@ public class BaseEntity
     public Guid Id { get; set; } = Guid.NewGuid();
 
     [Required]
-    [MaxLength(50)]
+    [MaxLength(150)]
     [Column("name")]
     public string Name { get; set; } = string.Empty;
 
