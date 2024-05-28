@@ -23,6 +23,10 @@
     background: linear-gradient(to bottom, transparent, #ffffff);
 }
 
+.p-card {
+    border-radius: 25px;
+}
+
 .p-card-footer {
     padding: 0;
 }
