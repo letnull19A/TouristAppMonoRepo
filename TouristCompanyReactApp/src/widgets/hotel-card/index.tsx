@@ -5,6 +5,7 @@ import { Card } from 'primereact/card'
 import { Rating } from 'primereact/rating'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import './styles.css'
 
 type HotelCardProps = {
 	tourData: TTour
@@ -17,7 +18,7 @@ export const HotelCard = (props: HotelCardProps) => {
 
 	const navigate = useNavigate()
 
-	const header = <img alt="Card" src={`${import.meta.env.VITE_API_URI}/bucket/${imageUrl}`} />
+	const header = <img className='card__image' alt="Card" src={`${import.meta.env.VITE_API_URI}/bucket/${imageUrl}`} />
 	const footer = (
 		<>
 			<Button onClick={() => navigate(`tour/${tourData.id}/view`)} label="Перейти" style={{ width: '100%' }} />
@@ -37,7 +38,7 @@ export const HotelCard = (props: HotelCardProps) => {
 		<div className="xl:col-3 lg:col-4 md:col-4 sm:col-6">
 			<Card title={name} subTitle={`${country.name}, ${city.name}`} footer={footer} header={header}>
 				<Rating value={stars} readOnly cancel={false} />
-				<p style={{ height: '110px' }} className="mt-2">{description}</p>
+				<p className="mt-2 card__description">{description}</p>
 			</Card>
 		</div>
 	)
