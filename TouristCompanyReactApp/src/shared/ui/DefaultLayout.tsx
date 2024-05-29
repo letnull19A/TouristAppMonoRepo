@@ -18,11 +18,17 @@ export const DefaultLayout = (props: { children: ReactNode }) => {
 				style={{ width: '100%', height: '64px', backgroundColor: '' }}
 			>
 				<div className="col-12 xl:col-9 flex flex-row align-items-center justify-content-between">
-					<img onClick={() => navigate('/')} style={{ width: '150px' }} src="/logo.svg" />
+					<img
+						onClick={() => navigate('/')}
+						style={{ width: '150px' }}
+						src="/logo.svg"
+					/>
 					<div>
 						{context.isAuth() ? (
 							<div className="flex flex-row gap-3">
-								<Avatar label={context.data?.firstName[0]} size="large" />
+								{context.data?.firstName !== undefined ? (
+									<Avatar label={context.data?.firstName[0]} size="large" />
+								) : null}
 								<div className="flex flex-column">
 									<span>
 										{context.data?.firstName} {context.data?.lastName}
