@@ -29,7 +29,7 @@ export const Authentication = () => {
 			.then((result) => result.json())
 			.then((result) => {
 				context.setData(result)
-				localStorage.setItem('userData', JSON.stringify(result))
+				localStorage.setItem('vouyageUserData', JSON.stringify(result))
 
 				context.setIsAuth(true)
 

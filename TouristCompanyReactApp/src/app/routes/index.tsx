@@ -12,13 +12,13 @@ export const RouterApp = () => {
 	const logout = () => {
 		setUserData(undefined)
 		setIsHasAuth(false)
-		localStorage.removeItem('userData')
+		localStorage.removeItem('vouyageUserData')
 	}
 
 	const isAuth = () => isHasAuth
 
 	useEffect(() => {
-		const data = localStorage.getItem('userData')
+		const data = localStorage.getItem('vouyageUserData')
 
 		if (data) {
 			setUserData(JSON.parse(data))
