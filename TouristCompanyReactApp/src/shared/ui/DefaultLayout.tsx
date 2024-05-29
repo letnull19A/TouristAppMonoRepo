@@ -24,7 +24,7 @@ export const DefaultLayout = (props: { children: ReactNode }) => {
 						src="/logo.svg"
 					/>
 					<div>
-						{context.isAuth() ? (
+						{context !== undefined && context.isAuth() ? (
 							<div className="flex flex-row gap-3">
 								{context.data?.firstName !== undefined ? (
 									<Avatar label={context.data?.firstName[0]} size="large" />
