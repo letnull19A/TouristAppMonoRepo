@@ -4,7 +4,7 @@ import { DefaultLayout } from '@ui'
 
 export const publicRouter: RouteObject[] = [
 	{
-		path: '',
+		path: '/',
 		element: (
 			<DefaultLayout>
 				<SearchPage />
