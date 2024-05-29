@@ -3,8 +3,9 @@ import { AuthContext } from '@contexts'
 import { Button } from 'primereact/button'
 import { Card } from 'primereact/card'
 import { InputText } from 'primereact/inputtext'
+import { Toast } from 'primereact/toast'
 import { classNames } from 'primereact/utils'
-import { useContext } from 'react'
+import { useContext, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
@@ -19,15 +20,47 @@ export const Authentication = () => {
 		password: ''
 	}
 
+	const toast = useRef<Toast>(null)
+
 	const context = useContext(AuthContext)
 	const navigation = useNavigate()
 
-	const { control, handleSubmit } = useForm({ defaultValues })
+	const { control, handleSubmit, formState } = useForm({ defaultValues })
+
+	const navigate = useNavigate()
+
+	const showError = () => {
+		toast.current?.show({
+			severity: 'error',
+			summary: 'Ошибка',
+			detail: 'Пользователь не найден',
+			life: 3000
+		})
+	}
+
+	const showSuccess = () => {
+		toast.current?.show({
+			severity: 'success',
+			summary: 'Успех!',
+			detail: 'Вы успешно вошли!',
+			life: 3000
+		})
+	}
 
 	const onSubmit = (data: TForm) => {
 		authApi(data)
 			.then((result) => result.json())
 			.then((result) => {
+				console.log(result)
+
+				if (result.status === 404) {
+					console.log('not found')
+					showError()
+					return
+				}
+
+				showSuccess()
+
 				context.setData(result)
 				localStorage.setItem('vouyageUserData', JSON.stringify(result))
 
@@ -46,12 +79,18 @@ export const Authentication = () => {
 			})
 	}
 
-	const navigate = useNavigate()
-
 	return (
 		<div className="w-full h-screen flex align-items-center flex-column justify-content-center">
-			<img onClick={() => navigate('/')} className='m-0-auto mb-4 w-7 sm:w-4 md:w-3 lg:w-2' src="/logo.svg"/>
-			<form className="col-12 sm:col-8 md:col-6 lg:col-5 lg:max-w-28rem" onSubmit={handleSubmit(onSubmit)}>
+			<Toast ref={toast} />
+			<img
+				onClick={() => navigate('/')}
+				className="m-0-auto mb-4 w-7 sm:w-4 md:w-3 lg:w-2"
+				src="/logo.svg"
+			/>
+			<form
+				className="col-12 sm:col-8 md:col-6 lg:col-5 lg:max-w-28rem"
+				onSubmit={handleSubmit(onSubmit)}
+			>
 				<Card title="Войти">
 					<Controller
 						name="login"
@@ -93,7 +132,7 @@ export const Authentication = () => {
 							</div>
 						)}
 					/>
-					<Button label="Войти" className="w-12 mt-5" value={'d'} />
+					<Button disabled={!formState.isValid} label="Войти" className="w-12 mt-5" value={'d'} />
 				</Card>
 			</form>
 		</div>
