@@ -36,7 +36,7 @@ export const HotelCard = (props: HotelCardProps) => {
 
 	return (
 		<div className="xl:col-3 lg:col-4 md:col-4 sm:col-6">
-			<Card title={name} subTitle={`${country.name}, ${city.name}`} footer={footer} header={header}>
+			<Card className='mt-1 mb-2' title={name} subTitle={`${country.name}, ${city.name}`} footer={footer} header={header}>
 				<Rating value={stars} readOnly cancel={false} />
 				<p className="mt-2 card__description">{description}</p>
 			</Card>
