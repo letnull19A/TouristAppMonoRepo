@@ -1,4 +1,4 @@
-FROM huecker.io/library/node:21-alpine3.18 as vite-app
+FROM huecker.io/library/node as vite-app
 
 WORKDIR /app
 COPY . .
@@ -6,7 +6,7 @@ COPY . .
 RUN ["npm", "i"]
 RUN ["npm", "run", "build"]
 
-FROM huecker.io/library/nginx:alpine
+FROM huecker.io/library/nginx
 
 WORKDIR /usr/share/nginx/
 
