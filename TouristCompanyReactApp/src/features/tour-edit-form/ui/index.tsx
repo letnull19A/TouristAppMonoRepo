@@ -147,11 +147,11 @@ export const TourEditForm = () => {
 
 		tourApi.edit({
 			id: data.id,
-            name: data.name ?? '',
-            description: data.description ?? '',
-            countryId: data.countryId ?? '',
-            cityId: data.cityId ?? '',
-            categoryId: data.categoryId ?? '',
+			name: data.name ?? '',
+			description: data.description ?? '',
+			countryId: data.countryId ?? '',
+			cityId: data.cityId ?? '',
+			categoryId: data.categoryId ?? '',
 			imageUrl: fileName ?? ''
 		})
 	}
@@ -247,9 +247,10 @@ export const TourEditForm = () => {
 						<div className="mt-4">
 							<CountryDropdown
 								defaultValue={country}
-								onChange={(e) =>
+								onChange={(e) => {
+									setCountry(e.target.value as TCountry)
 									field.onChange((e.target.value as TCountry).id)
-								}
+								}}
 							/>
 						</div>
 					)}
@@ -261,6 +262,7 @@ export const TourEditForm = () => {
 					render={({ field }) => (
 						<div className="mt-4">
 							<CityDropdown
+								country={country}
 								defaultValue={city}
 								onChange={(e) => field.onChange((e.target.value as TCity).id)}
 							/>
@@ -311,13 +313,16 @@ export const TourEditForm = () => {
 						onAppend={handleAppendPrice}
 					/>
 				</AddPriceTourContext.Provider>
-				<img src={`${import.meta.env.VITE_API_URI}/bucket/${fileName}`} className='mb-3'/>
+				<img
+					src={`${import.meta.env.VITE_API_URI}/bucket/${fileName}`}
+					className="mb-3"
+				/>
 				<FileUpload
 					mode="basic"
 					name="files"
 					url={`${import.meta.env.VITE_API_URI}/api/files/upload`}
 					accept="image/*"
-					chooseLabel='Выберите файл для обложки (png, jpg, jpeg)'
+					chooseLabel="Выберите файл для обложки (png, jpg, jpeg)"
 					maxFileSize={1000000}
 					onUpload={onUpload}
 				/>

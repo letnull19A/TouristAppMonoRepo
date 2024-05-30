@@ -32,6 +32,7 @@ export const TourAddForm = () => {
 	const [imageUploaded, setImageUploaded] = useState<boolean>(false)
 	const [fileName, setFileName] = useState<string>()
 	const [fields, setFields] = useState<Array<TAddPriceTour>>()
+	const [selectedCountry, setSelectedCountry] = useState<TCountry>()
 
 	const {
 		control,
@@ -40,7 +41,6 @@ export const TourAddForm = () => {
 	} = useForm({ defaultValues })
 
 	const onSubmit = (data: TAddTourForm) => {
-
 		console.log({
 			name: data.name,
 			categoryId: data.categoryId,
@@ -48,7 +48,7 @@ export const TourAddForm = () => {
 			countryId: data.countryId,
 			cityId: data.cityId,
 			imageUrl: fileName ?? ''
-		});
+		})
 
 		create({
 			name: data.name,
@@ -82,7 +82,7 @@ export const TourAddForm = () => {
 	const onUpload = (event: FileUploadUploadEvent) => {
 		if (event.xhr.status === 200) {
 			setImageUploaded(true)
-			
+
 			const response = JSON.parse(event.xhr.responseText)
 
 			setFileName(response.files[0].fileName)
@@ -141,9 +141,10 @@ export const TourAddForm = () => {
 						<label htmlFor={field.name}></label>
 						<div className="mt-4">
 							<CountryDropdown
-								onChange={(e) =>
+								onChange={(e) => {
+									setSelectedCountry(e.target.value as TCountry)
 									field.onChange((e.target.value as TCountry).id)
-								}
+								}}
 							/>
 						</div>
 						{getFormErrorMessage(field.name)}
@@ -159,6 +160,7 @@ export const TourAddForm = () => {
 						<label htmlFor={field.name}></label>
 						<div className="mt-4">
 							<CityDropdown
+								country={selectedCountry}
 								onChange={(e) => field.onChange((e.target.value as TCity).id)}
 							/>
 						</div>

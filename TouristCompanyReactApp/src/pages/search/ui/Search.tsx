@@ -26,7 +26,7 @@ export const Search = () => {
 
     return (
         <div className="mb-3 flex flex-row justify-content-between">
-            <InputText ref={inputRef} placeholder="Введите Ваш запрос" style={{ width: '92%' }} />
+            <InputText ref={inputRef} placeholder="Введите Ваш запрос" style={{ width: '90%' }} />
             <Button label="Найти" style={{ width: 100 }} onClick={() => handleSearch()}/>
         </div>
     )

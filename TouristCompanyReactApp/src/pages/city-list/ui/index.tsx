@@ -18,7 +18,14 @@ export const CityList = () => {
 
 	useEffect(() => {
 		getAll().then((res) => {
-			setCategories(res)
+			setCategories(
+				res.map((c) => {
+					return {
+						...c,
+						description: c.description.slice(0, 100).trimEnd() + '...'
+					}
+				})
+			)
 		})
 	}, [getAll])
 
