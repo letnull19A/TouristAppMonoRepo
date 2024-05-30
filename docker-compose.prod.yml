@@ -34,23 +34,23 @@ services:
       network:
         ipv4_address: 22.98.1.4
 
-  pgadmin:
-    image: huecker.io/library/dpage/pgadmin4
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=pgadmin@pgadmin.org
-      - PGADMIN_DEFAULT_PASSWORD=password
-      - PGADMIN_LISTEN_PORT=4789
-      - PGADMIN_CONFIG_SERVER_MODE=False
-    restart: unless-stopped
-    depends_on:
-      - postgres
-    ports:
-      - '5052:4789'
-    volumes:
-      - pgadmin:/var/lib/pgadmin
-    networks:
-      network:
-        ipv4_address: 22.98.1.5
+  # pgadmin:
+  #   image: huecker.io/library/dpage/pgadmin4
+  #   environment:
+  #     - PGADMIN_DEFAULT_EMAIL=pgadmin@pgadmin.org
+  #     - PGADMIN_DEFAULT_PASSWORD=password
+  #     - PGADMIN_LISTEN_PORT=4789
+  #     - PGADMIN_CONFIG_SERVER_MODE=False
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - postgres
+  #   ports:
+  #     - '5052:4789'
+  #   volumes:
+  #     - pgadmin:/var/lib/pgadmin
+  #   networks:
+  #     network:
+  #       ipv4_address: 22.98.1.5
 
   backend:
     build:
