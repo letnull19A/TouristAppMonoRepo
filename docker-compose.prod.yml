@@ -18,7 +18,7 @@ services:
         ipv4_address: 22.98.1.22
 
   postgres:
-    image: https://huecker.io/postgres:latest
+    image: https://huecker.io/library/postgres:latest
     ports:
       - '5432:5432'
     restart: unless-stopped
