@@ -1,4 +1,4 @@
-FROM hhuecker.io/library/node
+FROM huecker.io/library/node
 
 WORKDIR /app
 COPY . .
