@@ -16,7 +16,14 @@ export const CountryList = () => {
 
 	useEffect(() => {
 		getAll().then((res) => {
-			setCountries(res)
+			setCountries(
+				res.map((c) => {
+					return {
+						...c,
+						description: c.description.slice(0, 100).trimEnd() + '...'
+					}
+				})
+			)
 		})
 	}, [getAll])
 

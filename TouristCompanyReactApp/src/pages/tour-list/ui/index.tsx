@@ -12,7 +12,12 @@ export const TourList = () => {
 
 	useEffect(() => {
 		tourApi.getAll().then((res) => {
-			setTours(res)
+			setTours(res.map((c) => {
+				return {
+					...c,
+					description: c.description.slice(0, 100).trimEnd() + '...'
+				}
+			}))
 		})
 	}, [])
 

@@ -1,4 +1,4 @@
-FROM nginx:alpine
+FROM https://huecker.io/nginx:alpine
 
 EXPOSE 9088
 
