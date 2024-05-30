@@ -10,7 +10,7 @@ services:
       - './gateway/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
       - '/mnt/tour-app-uploads:/mnt/Uploads'
     depends_on:
-      - pgadmin
+      # - pgadmin
       - frontend
       - backend
     networks:
