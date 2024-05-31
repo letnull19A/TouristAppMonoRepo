@@ -41,9 +41,6 @@ public class SearchController(
     [HttpPost]
     public async Task<IActionResult> Search(string? search)
     {
-
-        int airportId = 0;
-        
         var tours = tourRepository.GetAll();
         var countries = countryRepository.GetAll();
         var cities = cityRepository.GetAll();
@@ -80,48 +77,8 @@ public class SearchController(
             return Ok(result);
         }
 
-        var tickets = GetTicketsByAirportId(airportId);
-        var countriesApi = GetAllCounties().Result;
-        var airportsApi = GetAllAirports().Result;
-
-        if (tickets.Count == 0)
-        {
-            return NotFound();
-        }
-
-        var c = tickets.Join(countriesApi, u => u.CountryDistanation, v => v.Id, (u, v) => new
-        {
-            TicketId = u.Id,
-            AirportId = u.AirportId,
-            CountryName = v.Name,
-        }).Join(airportsApi, t => t.AirportId, q => q.Id, (t, q) => new
-        {
-            City = q.City,
-            AirportName = q.Name,
-            t.AirportId,
-            t.CountryName,
-            t.TicketId
-        }).ToList();
-
         var searchResult = result.Where(o =>
             o.Description.Contains(search) || o.Name.Contains(search));
-
-        var readyResult = searchResult
-            .Join(c,
-                u => u.Country.Name,
-                t => t.CountryName,
-                (u, t) => new
-                {
-                    u.Country,
-                    u.Description,
-                    u.Name,
-                    u.Category,
-                    u.City,
-                    u.Id,
-                    t.AirportId,
-                    t.CountryName,
-                    AirportCity = t.City
-                });
 
         return Ok(searchResult);
     }
