@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.InteropServices.JavaScript;
 
 namespace TouristCompany.Models.Entities;
 
@@ -22,8 +23,14 @@ public class Order
     public Tour Tour { get; set; }
     
     [Required]
+    [Column("tour_price_id")]
+    public Guid TourPriceId { get; set; }
+
+    public TourPrice TourPrice { get; set; }
+
+    [Required]
     [Column("date")]
-    public long Date { get; set; }
+    public string Date { get; set; }
 
     [Required]
     [Column("status")]

@@ -20,3 +20,5 @@ export { THotelTour, TAddHotelTourForm, TEditHotelTourForm } from './hotel-tour'
 export { TAirport } from './airports'
 
 export { TAuthContext, TUserData, TAuthForm } from './auth'
+
+export { TOrder } from './order'

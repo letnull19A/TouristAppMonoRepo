@@ -1,5 +1,11 @@
 import { RouteObject } from 'react-router-dom'
-import { Authentication, Registration, SearchPage, TourView } from '@pages'
+import {
+	Authentication,
+	OrderList,
+	Registration,
+	SearchPage,
+	TourView
+} from '@pages'
 import { DefaultLayout } from '@ui'
 
 export const publicRouter: RouteObject[] = [
@@ -35,6 +41,19 @@ export const publicRouter: RouteObject[] = [
 				element: (
 					<DefaultLayout>
 						<TourView />
+					</DefaultLayout>
+				)
+			}
+		]
+	},
+	{
+		path: '/order-list',
+		children: [
+			{
+				path: '',
+				element: (
+					<DefaultLayout>
+						<OrderList />
 					</DefaultLayout>
 				)
 			}
