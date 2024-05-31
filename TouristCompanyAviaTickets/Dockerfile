@@ -1,4 +1,4 @@
-FROM huecker.io/library/node
+FROM dockerhub1.beget.com/library/node
 
 WORKDIR /app
 COPY . .

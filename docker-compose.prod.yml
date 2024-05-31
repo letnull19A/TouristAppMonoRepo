@@ -18,7 +18,7 @@ services:
         ipv4_address: 22.98.1.22
 
   postgres:
-    image: huecker.io/library/postgres
+    image: dockerhub1.beget.com/library/postgres
     ports:
       - '5432:5432'
     restart: unless-stopped
@@ -35,7 +35,7 @@ services:
         ipv4_address: 22.98.1.4
 
   # pgadmin:
-  #   image: huecker.io/library/dpage/pgadmin4
+  #   image: dockerhub1.beget.com/library/dpage/pgadmin4
   #   environment:
   #     - PGADMIN_DEFAULT_EMAIL=pgadmin@pgadmin.org
   #     - PGADMIN_DEFAULT_PASSWORD=password
