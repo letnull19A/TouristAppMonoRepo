@@ -77,8 +77,10 @@ public class SearchController(
             return Ok(result);
         }
 
+        var prepairedSearch = search.ToLower();
+
         var searchResult = result.Where(o =>
-            o.Description.Contains(search) || o.Name.Contains(search));
+            o.Description.ToLower().Contains(prepairedSearch) || o.Name.ToLower().Contains(prepairedSearch));
 
         return Ok(searchResult);
     }
