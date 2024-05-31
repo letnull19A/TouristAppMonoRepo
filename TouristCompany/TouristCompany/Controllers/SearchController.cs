@@ -38,7 +38,7 @@ public class SearchController(
     IRepository<City> cityRepository,
     IRepository<Category> categoryRepository) : ControllerBase
 {
-    [HttpGet]
+    [HttpPost]
     public async Task<IActionResult> Search(string? search)
     {
 
