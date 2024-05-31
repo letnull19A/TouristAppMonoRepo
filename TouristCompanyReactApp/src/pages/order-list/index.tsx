@@ -10,6 +10,7 @@ export const OrderList = () => {
 	const [tours, setTours] = useState<Array<TTour>>([])
 	const [airportId, setAirportId] = useState<TAirport>()
 	const [country, setCountry] = useState<TCountry>()
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [favs, setFavs] = useState<Array<TOrder>>([])
 
 	useEffect(() => {
