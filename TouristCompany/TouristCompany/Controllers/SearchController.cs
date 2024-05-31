@@ -83,7 +83,12 @@ public class SearchController(
         var prepairedSearch = search.ToLower();
 
         var searchResult = result.Where(o =>
-            o.Description.ToLower().Contains(prepairedSearch) || o.Name.ToLower().Contains(prepairedSearch));
+            o.Description.ToLower().Contains(prepairedSearch) || 
+            o.Description.ToLower().StartsWith(prepairedSearch) ||
+            o.Description.ToLower().EndsWith(prepairedSearch) ||
+            o.Name.ToLower().Contains(prepairedSearch) ||
+            o.Name.ToLower().StartsWith(prepairedSearch) ||
+            o.Name.ToLower().EndsWith(prepairedSearch));
 
         return Ok(searchResult);
     }
