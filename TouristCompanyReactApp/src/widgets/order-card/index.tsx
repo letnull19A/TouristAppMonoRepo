@@ -29,13 +29,13 @@ export const OrderCard = (props: HotelCardProps) => {
 	const renderStatus = (status: string) => {
 		switch (status) {
 			case 'AWAIT':
-				return 'На рассмотрении'
+				return 'Заявка на рассмотрении'
 			case 'ACCEPT':
-				return 'Принята'
+				return 'Заявка принята'
 			case 'REJECT':
-				return 'Отклонена'
+				return 'Заявка отклонена'
 			case 'CANCEL':
-				return 'Отменена'
+				return 'Заявка отменена'
 			default:
 				return 'Неизвестно'
 		}
