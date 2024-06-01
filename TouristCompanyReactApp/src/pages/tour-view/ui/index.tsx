@@ -4,13 +4,16 @@ import { TourInfo, TourPrices } from '@features'
 import { AdminPageTitle } from '@widgets'
 import { Accordion, AccordionTab } from 'primereact/accordion'
 import { Button } from 'primereact/button'
+import { Dialog } from 'primereact/dialog'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { OrderPage } from '@pages'
 
 export const TourView = () => {
 	const [currentTour, setCurrentTour] = useState<TTour>()
 	const [currentHotel, setCurrentHotel] = useState<THotel>()
 	const [, setCurrentHotelTour] = useState<THotelTour>()
+	const [visible, setVisible] = useState<boolean>(false)
 
 	const { id } = useParams()
 
@@ -30,12 +33,25 @@ export const TourView = () => {
 
 	return (
 		<>
-			<AdminPageTitle title="Обозреватель тура" toMain/>
+			<AdminPageTitle title="Обозреватель тура" toMain />
+			<Dialog
+				header="Оставить заявку"
+				visible={visible}
+				style={{ width: '30vw' }}
+				onHide={() => {
+					if (!visible) return
+					setVisible(false)
+				}}
+			>
+				<OrderPage/>
+			</Dialog>
 			<div className="grid mt-5 flex flex-column md:flex-row">
 				<div className="col-12 md:col-7">
 					<img
 						className="w-full"
-						src={`${import.meta.env.VITE_API_URI}/bucket/${currentTour?.imageUrl}`}
+						src={`${import.meta.env.VITE_API_URI}/bucket/${
+							currentTour?.imageUrl
+						}`}
 						style={{ objectFit: 'contain' }}
 					/>
 				</div>
@@ -45,6 +61,7 @@ export const TourView = () => {
 					<Button
 						className="w-full"
 						label="Оставить заявку"
+						onClick={() => setVisible(true)}
 					/>
 				</div>
 			</div>

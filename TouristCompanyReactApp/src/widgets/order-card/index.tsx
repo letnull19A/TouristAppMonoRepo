@@ -69,11 +69,11 @@ export const OrderCard = (props: HotelCardProps) => {
 	}, [orderData.tour.id])
 
 	return (
-		<div className="card-item" style={{ width: '100%', height: 314 }}>
+		<div className="card-item" style={{ width: '100%' }}>
 			<Card
 				title={title}
 				subTitle={`${orderData.country.name}, ${orderData.city.name}`}
-				style={{ display: 'flex', flexDirection: 'row', overflow: 'hidden' }}
+				style={{ overflow: 'hidden' }}
 				footer={footer}
 				header={header}
 			>

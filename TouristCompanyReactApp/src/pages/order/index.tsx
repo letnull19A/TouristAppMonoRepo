@@ -1,14 +1,12 @@
 import { hotelApi, hotelTourApi, orderApi, tourApi, tourPriceApi } from '@api'
 import { AuthContext } from '@contexts'
 import { THotel, THotelTour, TTour, TTourPrice } from '@entities'
-import { AdminPageTitle } from '@widgets'
 import { Button } from 'primereact/button'
 import { Calendar } from 'primereact/calendar'
 import { Dropdown } from 'primereact/dropdown'
-import { Toast } from 'primereact/toast'
 import { Nullable } from 'primereact/ts-helpers'
 import { classNames } from 'primereact/utils'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
@@ -28,8 +26,6 @@ export const OrderPage = () => {
 	const { id } = useParams()
 
 	const context = useContext(AuthContext)
-
-	const toast = useRef<Toast>(null)
 
 	useEffect(() => {
 		if (id === undefined) return
@@ -65,20 +61,11 @@ export const OrderPage = () => {
 			})
 			.then((res) => {
 				console.log(res)
-
-				toast.current?.show({
-					severity: 'success',
-					summary: 'Успех!',
-					detail:
-						'Заявка успешно оформлена, перейдите в заявки чтобы увидеть её статус'
-				})
 			})
 	}
 
 	return (
 		<>
-			<AdminPageTitle title="Оформление заявки" toMain />
-			<Toast ref={toast}></Toast>
 			<div className="flex justify-content-center">
 				<div className="col-12 sm:col-8 md:col-6 lg:col-5 lg:max-w-28rem mt-5">
 					<form className="flex flex-column" onSubmit={handleSubmit(onSubmit)}>
