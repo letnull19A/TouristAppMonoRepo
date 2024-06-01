@@ -17,11 +17,10 @@ export const TourDataTable = (props: TTourDataTableProps) => {
 
 	return (
 		<DataTable
-			paginator
-			rowsPerPageOptions={[5, 10, 25, 50]}
+			stripedRows
+			showGridlines={false}
 			value={data}
 			editMode="row"
-			rows={5}
 			dataKey="id"
 			className="pt-4"
 			selectionMode="checkbox"

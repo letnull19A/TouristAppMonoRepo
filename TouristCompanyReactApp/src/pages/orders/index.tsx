@@ -84,11 +84,9 @@ export const Orders = () => {
 
 	return (
 		<>
-			<Toast position='bottom-right' ref={toast} />
+			<Toast position="bottom-right" ref={toast} />
 			<AdminPageTitle title="Список заявок" />
 			<DataTable
-				paginator
-				rowsPerPageOptions={[5, 10, 25, 50]}
 				value={orders}
 				editMode="row"
 				rows={10}
@@ -124,7 +122,11 @@ export const Orders = () => {
 						)
 					}}
 				/>
-				<Column field="order.displayStatus" header="Статус" style={{ width: '30%' }} />
+				<Column
+					field="order.displayStatus"
+					header="Статус"
+					style={{ width: '30%' }}
+				/>
 				<Column
 					header="Действия"
 					align={'center'}

@@ -9,7 +9,7 @@ import { AdminPageTitle } from '@widgets'
 
 export const UserList = () => {
 	const [users, setUsers] = useState<Array<TUser>>([])
-    const [selected, setSelectedProducts] = useState<Array<TUser>>([])
+	const [selected, setSelectedProducts] = useState<Array<TUser>>([])
 
 	useEffect(() => {
 		userApi.getAll().then(setUsers)
@@ -30,38 +30,23 @@ export const UserList = () => {
 	return (
 		<div className="px-4">
 			<ConfirmDialog />
-			<AdminPageTitle title='Список пользователей'/>
+			<AdminPageTitle title="Список пользователей" />
 			<div className="card p-fluid">
 				<DataTable
-					paginator
-					rowsPerPageOptions={[5, 10, 25, 50]}
 					value={users}
 					editMode="row"
-					rows={5}
 					dataKey="id"
 					className="pt-4"
 					selectionMode="checkbox"
-                    emptyMessage="Пользователей не найдено"
+					emptyMessage="Пользователей не найдено"
 					selection={selected}
 					onSelectionChange={(e) => setSelectedProducts(e.value)}
 					tableStyle={{ minWidth: '50rem' }}
 				>
 					<Column selectionMode="multiple" headerStyle={{ width: '3rem' }} />
-					<Column
-						field="firstName"
-						header="Имя"
-						style={{ width: '30%' }}
-					/>
-					<Column
-						field="lastName"
-						header="Фамилия"
-						style={{ width: '30%' }}
-					/>
-					<Column
-						field="email"
-						header="E-Mail"
-						style={{ width: '30%' }}
-					/>
+					<Column field="firstName" header="Имя" style={{ width: '30%' }} />
+					<Column field="lastName" header="Фамилия" style={{ width: '30%' }} />
+					<Column field="email" header="E-Mail" style={{ width: '30%' }} />
 					<Column
 						header="Действия"
 						rowEditor

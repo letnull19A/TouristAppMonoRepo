@@ -83,11 +83,8 @@ export const CountryList = () => {
 				<AdminPageTitle title="Список стран" />
 				<div className="card p-fluid">
 					<DataTable
-						paginator
-						rowsPerPageOptions={[5, 10, 25, 50]}
 						value={countries}
 						editMode="row"
-						rows={5}
 						dataKey="id"
 						className="pt-4"
 						onRowEditComplete={onRowEditComplete}
