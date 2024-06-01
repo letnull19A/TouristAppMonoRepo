@@ -50,7 +50,7 @@ export const OrderCard = (props: HotelCardProps) => {
 	)
 	const footer = (
 		<>
-			<span>{renderStatus(orderData.order.status)}</span>
+			<span className='mt-3'>{renderStatus(orderData.order.status)}</span>
 		</>
 	)
 
@@ -74,9 +74,7 @@ export const OrderCard = (props: HotelCardProps) => {
 				header={header}
 			>
 				<Rating value={stars} readOnly cancel={false} />
-				<p style={{ height: '60px', overflow: 'hidden' }} className="mt-2 mb-0">
-					{orderData.tour.description}
-				</p>
+				<p className="mt-2 card__description">{orderData.tour.description}</p>
 			</Card>
 		</div>
 	)
