@@ -28,7 +28,7 @@ export const AttractionList = () => {
 	return (
 		<div className="px-4">
 			<ConfirmDialog />
-			<AdminPageTitle title="Список достопримечательностей" />
+			<AdminPageTitle title="Список достопримечательностей" toMain />
 			<div className="card p-fluid">
 				<AttractionDataTable
 					selected={selected}

@@ -30,7 +30,7 @@ export const UserList = () => {
 	return (
 		<div className="px-4">
 			<ConfirmDialog />
-			<AdminPageTitle title="Список пользователей" />
+			<AdminPageTitle title="Список пользователей" toMain />
 			<div className="card p-fluid">
 				<DataTable
 					value={users}

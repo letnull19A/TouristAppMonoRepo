@@ -32,7 +32,7 @@ export const HotelCreate = () => {
 
 	return (
 		<div className="px-4">
-			<AdminPageTitle title="Добавить новый отель" />
+			<AdminPageTitle title="Добавить новый отель" toMain />
 			<div className="card flex mt-4 col-5">
 				<Toast position='bottom-right' ref={toast} />
 				<form

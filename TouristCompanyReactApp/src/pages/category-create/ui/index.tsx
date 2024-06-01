@@ -38,7 +38,7 @@ export const CategoryCreate = () => {
 
 	return (
 		<div className="px-4">
-			<AdminPageTitle title={'Добавить категорию'} />
+			<AdminPageTitle title={'Добавить категорию'} toMain />
 			<div className="card flex mt-4 col-5">
 				<Toast position='bottom-right' ref={toast} />
 				<form

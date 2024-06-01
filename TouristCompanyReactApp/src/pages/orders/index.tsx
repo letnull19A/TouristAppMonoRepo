@@ -85,7 +85,7 @@ export const Orders = () => {
 	return (
 		<>
 			<Toast position="bottom-right" ref={toast} />
-			<AdminPageTitle title="Список заявок" />
+			<AdminPageTitle title="Список заявок" toMain />
 			<DataTable
 				value={orders}
 				editMode="row"

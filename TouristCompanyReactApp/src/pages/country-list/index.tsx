@@ -80,7 +80,7 @@ export const CountryList = () => {
 		countries && (
 			<div className="px-4">
 				<ConfirmDialog />
-				<AdminPageTitle title="Список стран" />
+				<AdminPageTitle title="Список стран" toMain />
 				<div className="card p-fluid">
 					<DataTable
 						value={countries}

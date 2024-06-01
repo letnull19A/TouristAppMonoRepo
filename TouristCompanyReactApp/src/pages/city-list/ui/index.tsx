@@ -95,7 +95,7 @@ export const CityList = () => {
 	return (
 		<div className="px-4">
 			<ConfirmDialog />
-			<AdminPageTitle title="Список Городов" />
+			<AdminPageTitle title="Список Городов" toMain />
 			<div className="card p-fluid">
 				<DataTable
 					value={categories}

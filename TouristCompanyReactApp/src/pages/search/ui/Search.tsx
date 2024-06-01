@@ -1,33 +1,38 @@
-import { search } from "@api"
-import { SearchContext } from "@contexts"
-import { Button } from "primereact/button"
-import { InputText } from "primereact/inputtext"
-import { useContext, useRef } from "react"
+import { search } from '@api'
+import { SearchContext } from '@contexts'
+import { Button } from 'primereact/button'
+import { InputText } from 'primereact/inputtext'
+import { useContext, useRef } from 'react'
 
 export const Search = () => {
+	const inputRef = useRef<HTMLInputElement>(null)
 
-    const inputRef = useRef<HTMLInputElement>(null)
+	const context = useContext(SearchContext)
 
-    const context = useContext(SearchContext)
+	const handleSearch = async () => {
+		if (inputRef === null || inputRef.current === null) return
 
-    const handleSearch = async () => {
-        if (inputRef === null || inputRef.current === null) return
+		console.log(context.airport, context.country)
 
-        console.log(context.airport, context.country)
-        
-        const result = await (await search(inputRef.current?.value, context.airport?.id ?? '')).json()
+		const result = await (
+			await search(inputRef.current?.value, context.airport?.id ?? '')
+		).json()
 
-        if (result) {   
-            console.log(result)
-            
-            context.setData(result)
-        }
-    }
+		if (result) {
+			console.log(result)
 
-    return (
-        <div className="mb-3 flex flex-row justify-content-between">
-            <InputText ref={inputRef} placeholder="Введите Ваш запрос" style={{ width: '90%' }} />
-            <Button label="Найти" style={{ width: 100 }} onClick={() => handleSearch()}/>
-        </div>
-    )
+			context.setData(result)
+		}
+	}
+
+	return (
+		<div className="mb-3 grid">
+			<div className="col-10">
+				<InputText className='w-full' ref={inputRef} placeholder="Введите Ваш запрос" />
+			</div>
+			<div className="col-2">
+				<Button className='w-full' label="Найти" onClick={() => handleSearch()} />
+			</div>
+		</div>
+	)
 }

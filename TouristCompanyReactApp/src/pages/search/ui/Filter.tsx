@@ -2,6 +2,7 @@ import { ticketApi } from '@api'
 import { SearchContext } from '@contexts'
 import { TAirport } from '@entities'
 import { CountryDropdown } from '@ui'
+import { Button } from 'primereact/button'
 import { Calendar } from 'primereact/calendar'
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown'
 import {
@@ -49,72 +50,73 @@ export const Filter = () => {
 	const context = useContext(SearchContext)
 
 	return (
-		<>
-			<div className="flex flex-column lg:flex-row justify-content-between gap-3">
-				<div className="flex flex-column gap-2 col-12 lg:col-3 p-0">
-					<label>Город вылета</label>
-					<AirportsDropdown
-						onChange={(e) => {
-							context.setAirportId(e.target.value)
-						}}
-					/>
-				</div>
-				<div className="flex flex-column gap-2">
-					<label>Страна назначения</label>
-					<CountryDropdown
-						onChange={(e) => {
-							context.setCountry(e.target.value)
-						}}
-					/>
-				</div>
-				<div className="flex flex-column gap-2">
-					<label>Дата вылета</label>
-					<Calendar
-						value={dates}
-						onChange={(e) => setDates(e.value)}
-						selectionMode="single"
-						readOnlyInput
-						hideOnRangeSelection
-					/>
-				</div>
-				<div className="col-12 lg:col-4 p-0 flex flex-row gap-3">
-					<div className="flex flex-column gap-2 col-5 p-0">
-						<label>Кол-во человек</label>
-						<InputNumber
-							value={humans}
-							inputStyle={{ width: '100%' }}
-							onValueChange={(e: InputNumberValueChangeEvent) =>
-								setHumans(e.target.value ?? 0)
-							}
-							showButtons
-							buttonLayout="horizontal"
-							step={1}
-							min={1}
-							incrementButtonIcon="pi pi-plus"
-							decrementButtonIcon="pi pi-minus"
-							mode="decimal"
-						/>
-					</div>
-					<div className="flex flex-column gap-2 col-5 p-0">
-						<label>Кол-во дней</label>
-						<InputNumber
-							value={days}
-							inputStyle={{ width: '100%' }}
-							onValueChange={(e: InputNumberValueChangeEvent) =>
-								setDays(e.target.value ?? 0)
-							}
-							showButtons
-							buttonLayout="horizontal"
-							step={1}
-							min={1}
-							max={90}
-							incrementButtonIcon="pi pi-plus"
-							decrementButtonIcon="pi pi-minus"
-							mode="decimal"
-						/>
-					</div>
-				</div>
+		<div className="flex flex-column lg:flex-row align-items-end grid">
+			<div className="flex flex-column gap-2 col-12 lg:col-2">
+				<label>Город вылета</label>
+				<AirportsDropdown
+					onChange={(e) => {
+						context.setAirportId(e.target.value)
+					}}
+				/>
 			</div>
-		</>
+			<div className="flex flex-column gap-2 col-12 lg:col-2">
+				<label>Страна</label>
+				<CountryDropdown
+					onChange={(e) => {
+						context.setCountry(e.target.value)
+					}}
+				/>
+			</div>
+			<div className="flex flex-column gap-2 col-12 lg:col-2">
+				<label>Дата вылета</label>
+				<Calendar
+					value={dates}
+					onChange={(e) => setDates(e.value)}
+					selectionMode="single"
+					readOnlyInput
+					hideOnRangeSelection
+				/>
+			</div>
+			<div className="flex flex-column gap-2 col-12 lg:col-2">
+				<label>Кол-во человек</label>
+				<InputNumber
+					value={humans}
+					inputStyle={{ width: '100%' }}
+					onValueChange={(e: InputNumberValueChangeEvent) =>
+						setHumans(e.target.value ?? 0)
+					}
+					showButtons
+					buttonLayout="horizontal"
+					step={1}
+					min={1}
+					inputClassName="text-center"
+					incrementButtonIcon="pi pi-plus"
+					decrementButtonIcon="pi pi-minus"
+					mode="decimal"
+				/>
+			</div>
+			<div className="flex flex-column gap-2 col-12 lg:col-2">
+				<label>Кол-во дней</label>
+				<InputNumber
+					value={days}
+					inputStyle={{ width: '100%' }}
+					onValueChange={(e: InputNumberValueChangeEvent) =>
+						setDays(e.target.value ?? 0)
+					}
+					showButtons
+					buttonLayout="horizontal"
+					step={1}
+					min={1}
+					max={90}
+					inputClassName="text-center"
+					incrementButtonIcon="pi pi-plus"
+					decrementButtonIcon="pi pi-minus"
+					mode="decimal"
+				/>
+			</div>
+			<div className="col-12 lg:col-2">
+				<Button className='w-full' label="Применить фильтр" />
+			</div>
+		</div>
 	)
 }

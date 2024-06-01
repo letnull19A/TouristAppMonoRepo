@@ -70,7 +70,7 @@ export const CategoryList = () => {
 	return (
 		<div className="px-4">
 			<ConfirmDialog />
-			<AdminPageTitle title="Список категорий" />
+			<AdminPageTitle title="Список категорий" toMain />
 			<div className="card p-fluid">
 				<DataTable
 					value={categories}

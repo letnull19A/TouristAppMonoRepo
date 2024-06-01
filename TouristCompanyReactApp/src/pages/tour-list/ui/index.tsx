@@ -49,7 +49,7 @@ export const TourList = () => {
 	return (
 		<div className="px-4">
 			<ConfirmDialog />
-			<AdminPageTitle title='Список туров'/>
+			<AdminPageTitle title='Список туров' toMain/>
 			<div className="card p-fluid">
 				<TourDataTable
 					data={tours}
