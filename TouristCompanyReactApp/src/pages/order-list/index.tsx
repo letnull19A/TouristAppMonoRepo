@@ -2,7 +2,7 @@ import { orderApi, tourApi } from '@api'
 import { AuthContext, SearchContext } from '@contexts'
 import { TAirport, TCountry, TOrder, TTour } from '@entities'
 import { useContext, useEffect, useState } from 'react'
-// import { CardOrderGrid } from './CardGrid'
+import { CardOrderGrid } from './CardGrid'
 
 export const OrderList = () => {
 	const context = useContext(AuthContext)
@@ -10,7 +10,7 @@ export const OrderList = () => {
 	const [tours, setTours] = useState<Array<TTour>>([])
 	const [airportId, setAirportId] = useState<TAirport>()
 	const [country, setCountry] = useState<TCountry>()
-	const [, setFavs] = useState<Array<TOrder>>([])
+	const [favs, setFavs] = useState<Array<TOrder>>([])
 
 	useEffect(() => {
 		tourApi.getAll().then((res) => {
@@ -41,7 +41,7 @@ export const OrderList = () => {
 					}}
 				>
 					<h1 className="p-0 m-0">Заявки</h1>
-					{/* <CardOrderGrid orders={favs} /> */}
+					<CardOrderGrid orders={favs} />
 				</SearchContext.Provider>
 			</div>
 		</div>

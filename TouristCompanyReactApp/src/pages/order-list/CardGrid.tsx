@@ -19,7 +19,7 @@ export const CardOrderGrid = (props: TFavPage) => {
 			{orders !== undefined && orders.length > 0 ? (
 				cards
 			) : (
-				<>Заявки отсутствуют</>
+				<>Текущие заявки отсутствуют</>
 			)}
 		</div>
 	)

@@ -3,6 +3,7 @@ import { THotel, THotelTour, TTour } from '@entities'
 import { Card } from 'primereact/card'
 import { Rating } from 'primereact/rating'
 import { useEffect, useState } from 'react'
+import './style.css'
 
 type TTourInfoProps = {
 	tourId: string
