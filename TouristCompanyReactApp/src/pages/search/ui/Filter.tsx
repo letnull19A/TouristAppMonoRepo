@@ -1,6 +1,6 @@
 import { ticketApi } from '@api'
 import { SearchContext } from '@contexts'
-import { TAirport } from '@entities'
+import { TAirport, TCountry } from '@entities'
 import { CountryDropdown } from '@ui'
 import { Button } from 'primereact/button'
 import { Calendar } from 'primereact/calendar'
@@ -11,6 +11,7 @@ import {
 } from 'primereact/inputnumber'
 import { Nullable } from 'primereact/ts-helpers'
 import { useContext, useEffect, useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 
 type TAirportsDropdownProps = {
 	defaultValue?: TAirport
@@ -42,6 +43,15 @@ const AirportsDropdown = (props: TAirportsDropdownProps) => {
 	)
 }
 
+type TFilter = {
+	search: string | undefined
+	country: TCountry | undefined
+	airport: TAirport | undefined
+	date: string
+	humans: number
+	days: number
+}
+
 export const Filter = () => {
 	const [dates, setDates] = useState<Nullable<Date | null>>(null)
 	const [humans, setHumans] = useState<number>(1)
@@ -49,74 +59,134 @@ export const Filter = () => {
 
 	const context = useContext(SearchContext)
 
+	const defaultValues: TFilter = {
+		search: '',
+		country: undefined,
+		airport: undefined,
+		date: '',
+		humans: 1,
+		days: 1
+	}
+
+	const { control, handleSubmit } = useForm({ defaultValues })
+
+	const onSubmit = (data: TFilter) => {
+		console.log(data)
+	}
+
 	return (
-		<div className="flex flex-column lg:flex-row align-items-end grid">
-			<div className="flex flex-column gap-2 col-12 lg:col-2">
-				<label>Город вылета</label>
-				<AirportsDropdown
-					onChange={(e) => {
-						context.setAirportId(e.target.value)
-					}}
+		<form onSubmit={handleSubmit(onSubmit)}>
+			<div className="flex flex-column lg:flex-row align-items-end grid">
+				<Controller
+					control={control}
+					name="airport"
+					rules={{ required: 'Выберете аэропорт' }}
+					render={({ field }) => (
+						<div className="flex flex-column gap-2 col-12 lg:col-2">
+							<label>Город вылета</label>
+							<AirportsDropdown
+								onChange={(e) => {
+									field.onChange(e.target.value)
+									context.setAirportId(e.target.value)
+								}}
+							/>
+						</div>
+					)}
 				/>
-			</div>
-			<div className="flex flex-column gap-2 col-12 lg:col-2">
-				<label>Страна</label>
-				<CountryDropdown
-					onChange={(e) => {
-						context.setCountry(e.target.value)
-					}}
+				<Controller
+					control={control}
+					name="country"
+					rules={{ required: 'Выберете страну' }}
+					render={({ field }) => (
+						<div className="flex flex-column gap-2 col-12 lg:col-2">
+							<label>Страна</label>
+							<CountryDropdown
+								onChange={(e) => {
+									field.onChange(e.target.value)
+									context.setCountry(e.target.value)
+								}}
+							/>
+						</div>
+					)}
 				/>
-			</div>
-			<div className="flex flex-column gap-2 col-12 lg:col-2">
-				<label>Дата вылета</label>
-				<Calendar
-					value={dates}
-					onChange={(e) => setDates(e.value)}
-					selectionMode="single"
-					readOnlyInput
-					hideOnRangeSelection
+				<Controller
+					control={control}
+					name="date"
+					rules={{ required: 'Выберете дату' }}
+					render={({ field }) => (
+						<div className="flex flex-column gap-2 col-12 lg:col-2">
+							<label>Дата вылета</label>
+							<Calendar
+								value={dates}
+								onChange={(e) => {
+									console.log(e.target.value?.toISOString())
+									field.onChange(e.target.value?.toISOString())
+									setDates(e.value)
+								}}
+								selectionMode="single"
+								readOnlyInput
+								hideOnRangeSelection
+							/>
+						</div>
+					)}
 				/>
-			</div>
-			<div className="flex flex-column gap-2 col-12 lg:col-2">
-				<label>Кол-во человек</label>
-				<InputNumber
-					value={humans}
-					inputStyle={{ width: '100%' }}
-					onValueChange={(e: InputNumberValueChangeEvent) =>
-						setHumans(e.target.value ?? 0)
-					}
-					showButtons
-					buttonLayout="horizontal"
-					step={1}
-					min={1}
-					inputClassName="text-center"
-					incrementButtonIcon="pi pi-plus"
-					decrementButtonIcon="pi pi-minus"
-					mode="decimal"
+				<Controller
+					control={control}
+					name="humans"
+					rules={{ required: 'Введите кол-во человек' }}
+					render={({ field }) => (
+						<div className="flex flex-column gap-2 col-12 lg:col-2">
+							<label>Кол-во человек</label>
+							<InputNumber
+								value={humans}
+								inputStyle={{ width: '100%' }}
+								onValueChange={(e: InputNumberValueChangeEvent) => {
+									field.onChange(e.target.value)
+									setHumans(e.target.value ?? 0)
+								}}
+								showButtons
+								buttonLayout="horizontal"
+								step={1}
+								min={1}
+								inputClassName="text-center"
+								incrementButtonIcon="pi pi-plus"
+								decrementButtonIcon="pi pi-minus"
+								mode="decimal"
+							/>
+						</div>
+					)}
 				/>
-			</div>
-			<div className="flex flex-column gap-2 col-12 lg:col-2">
-				<label>Кол-во дней</label>
-				<InputNumber
-					value={days}
-					inputStyle={{ width: '100%' }}
-					onValueChange={(e: InputNumberValueChangeEvent) =>
-						setDays(e.target.value ?? 0)
-					}
-					showButtons
-					buttonLayout="horizontal"
-					step={1}
-					min={1}
-					max={90}
-					inputClassName="text-center"
-					incrementButtonIcon="pi pi-plus"
-					decrementButtonIcon="pi pi-minus"
-					mode="decimal"
+				<Controller
+					control={control}
+					name="days"
+					rules={{ required: 'Введите кол-во дней' }}
+					render={({ field }) => (
+						<div className="flex flex-column gap-2 col-12 lg:col-2">
+							<label>Кол-во дней</label>
+							<InputNumber
+								value={days}
+								inputStyle={{ width: '100%' }}
+								onValueChange={(e: InputNumberValueChangeEvent) => {
+									field.onChange(e.target.value)
+									setDays(e.target.value ?? 0)
+								}}
+								showButtons
+								buttonLayout="horizontal"
+								step={1}
+								min={1}
+								max={90}
+								inputClassName="text-center"
+								incrementButtonIcon="pi pi-plus"
+								decrementButtonIcon="pi pi-minus"
+								mode="decimal"
+							/>
+						</div>
+					)}
 				/>
+				<div className="col-12 lg:col-2">
+					<Button className="w-full" label="Применить фильтр" />
+				</div>
 			</div>
-			<div className="col-12 lg:col-2">
-				<Button className='w-full' label="Применить фильтр" />
-			</div>
-		</div>
+		</form>
 	)
 }
