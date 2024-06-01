@@ -1,23 +1,19 @@
-import { orderApi, tourApi } from '@api'
-import { AuthContext, SearchContext } from '@contexts'
-import { TAirport, TCountry, TOrder, TTour } from '@entities'
+import { orderApi } from '@api'
+import { AuthContext } from '@contexts'
+import { TOrder } from '@entities'
 import { useContext, useEffect, useState } from 'react'
 import { CardOrderGrid } from './CardGrid'
 
 export const OrderList = () => {
 	const context = useContext(AuthContext)
 
-	const [tours, setTours] = useState<Array<TTour>>([])
-	const [airportId, setAirportId] = useState<TAirport>()
-	const [country, setCountry] = useState<TCountry>()
 	const [favs, setFavs] = useState<Array<TOrder>>([])
 
 	useEffect(() => {
-		if (context.data === undefined) return
 
-		tourApi.getAll().then((res) => {
-			setTours(res)
-		})
+		console.log(context.data);
+
+		if (context.data === undefined) return
 
 		console.log(context.data?.id);
 
@@ -25,24 +21,13 @@ export const OrderList = () => {
 			console.log(res)
 			setFavs(res)
 		})
-	}, [])
+	}, [context.data])
 
 	return (
 		<div className="flex flex-row">
 			<div className="ml-5" style={{ width: '100%' }}>
-				<SearchContext.Provider
-					value={{
-						data: tours,
-						setData: setTours,
-						airport: airportId,
-						setAirportId: setAirportId,
-						country: country,
-						setCountry: setCountry
-					}}
-				>
 					<h1 className="p-0 my-4">Заявки</h1>
 					<CardOrderGrid orders={favs} />
-				</SearchContext.Provider>
 			</div>
 		</div>
 	)
