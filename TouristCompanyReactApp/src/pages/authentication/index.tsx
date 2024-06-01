@@ -81,7 +81,7 @@ export const Authentication = () => {
 
 	return (
 		<div className="w-full h-screen flex align-items-center flex-column justify-content-center">
-			<Toast ref={toast} />
+			<Toast position='bottom-right' ref={toast} />
 			<img
 				onClick={() => navigate('/')}
 				className="m-0-auto mb-4 w-7 sm:w-4 md:w-3 lg:w-2"

@@ -25,16 +25,22 @@ export const DefaultLayout = (props: { children: ReactNode }) => {
 					/>
 					<div>
 						{context !== undefined && context.isAuth() ? (
-							<div className="flex flex-row gap-3" style={{ cursor: 'pointer' }} onClick={() => navigate('/order-list')}>
-								<div className='flex flex-row gap-3'>
-									{context.data?.firstName !== undefined ? (
-										<Avatar label={context.data?.firstName[0]} size="large" />
-									) : null}
-									<div className="flex flex-column">
-										<span>
-											{context.data?.firstName} {context.data?.lastName}
-										</span>
-										<span>{context.data?.role}</span>
+							<div className='flex flex-row gap-4'>
+								<div
+									className="flex flex-row gap-3"
+									style={{ cursor: 'pointer' }}
+									onClick={() => navigate('/order-list')}
+								>
+									<div className="flex flex-row gap-3">
+										{context.data?.firstName !== undefined ? (
+											<Avatar label={context.data?.firstName[0]} size="large" />
+										) : null}
+										<div className="flex flex-column">
+											<span>
+												{context.data?.firstName} {context.data?.lastName}
+											</span>
+											<span>{context.data?.role}</span>
+										</div>
 									</div>
 								</div>
 								{context.data?.role === 'Администратор' ? (

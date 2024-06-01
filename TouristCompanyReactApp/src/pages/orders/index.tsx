@@ -37,7 +37,7 @@ export const Orders = () => {
 						...item,
 						order: {
 							...item.order,
-							status: renderStatus(item.order.status),
+							displayStatus: renderStatus(item.order.status),
 							date: new Date(item.order.date).toLocaleDateString()
 						},
 						user: {
@@ -84,7 +84,7 @@ export const Orders = () => {
 
 	return (
 		<>
-			<Toast ref={toast} />
+			<Toast position='bottom-right' ref={toast} />
 			<AdminPageTitle title="Список заявок" />
 			<DataTable
 				paginator
@@ -111,48 +111,41 @@ export const Orders = () => {
 					body={(data) => {
 						return (
 							<div className="flex flex-column gap-2">
-								<Button
-									outlined
-									icon={'pi pi-eye'}
-									label="Посмотреть"
+								<label
+									className="text-primary underline"
+									style={{ cursor: 'pointer' }}
 									onClick={() => {
 										navigate(`/tour/${data.tour.id}/view`)
 									}}
-								/>
+								>
+									Перейти
+								</label>
 							</div>
 						)
 					}}
 				/>
-				<Column field="order.status" header="Статус" style={{ width: '30%' }} />
+				<Column field="order.displayStatus" header="Статус" style={{ width: '30%' }} />
 				<Column
 					header="Действия"
 					align={'center'}
 					body={(data) => (
-						<div className="flex flex-column gap-2">
-							{data.order.status !== 'ACCEPT' ? (
-								<Button
-									outlined
-									severity="success"
-									icon={'pi pi-check'}
-									label="Принять"
-									onClick={() => {
-										handleAccept(data.order.id)
-										showInfo()
-									}}
-								/>
-							) : null}
-							{data.order.status !== 'CANCEL' ? (
-								<Button
-									outlined
-									severity="danger"
-									icon={'pi pi-times'}
-									label="Отклонить"
-									onClick={() => {
-										handleCancel(data.order.id)
-										showInfo()
-									}}
-								/>
-							) : null}
+						<div className="flex flex-row gap-2">
+							<Button
+								label="Принять"
+								disabled={data.order.status === 'ACCEPT'}
+								onClick={() => {
+									handleAccept(data.order.id)
+									showInfo()
+								}}
+							/>
+							<Button
+								label="Отклонить"
+								disabled={data.order.status === 'CANCEL'}
+								onClick={() => {
+									handleCancel(data.order.id)
+									showInfo()
+								}}
+							/>
 						</div>
 					)}
 					headerStyle={{ width: '10%', minWidth: '8rem' }}

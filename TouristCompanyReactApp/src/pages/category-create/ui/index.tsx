@@ -40,7 +40,7 @@ export const CategoryCreate = () => {
 		<div className="px-4">
 			<AdminPageTitle title={'Добавить категорию'} />
 			<div className="card flex mt-4 col-5">
-				<Toast ref={toast} />
+				<Toast position='bottom-right' ref={toast} />
 				<form
 					onSubmit={handleSubmit(onSubmit)}
 					className="flex flex-column gap-40"
