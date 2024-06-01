@@ -13,11 +13,11 @@ export const OrderList = () => {
 	const [favs, setFavs] = useState<Array<TOrder>>([])
 
 	useEffect(() => {
+		if (context.data === undefined) return
+
 		tourApi.getAll().then((res) => {
 			setTours(res)
 		})
-
-		if (context.data === undefined) return
 
 		console.log(context.data?.id);
 
@@ -40,7 +40,7 @@ export const OrderList = () => {
 						setCountry: setCountry
 					}}
 				>
-					<h1 className="p-0 m-0">Заявки</h1>
+					<h1 className="p-0 my-4">Заявки</h1>
 					<CardOrderGrid orders={favs} />
 				</SearchContext.Provider>
 			</div>
