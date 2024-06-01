@@ -27,10 +27,10 @@ export const Search = () => {
 
 	return (
 		<div className="mb-3 grid">
-			<div className="col-10">
+			<div className="col-9 md:col-10">
 				<InputText className='w-full' ref={inputRef} placeholder="Введите Ваш запрос" />
 			</div>
-			<div className="col-2">
+			<div className="col-3 md:col-2">
 				<Button className='w-full' label="Найти" onClick={() => handleSearch()} />
 			</div>
 		</div>

@@ -25,7 +25,7 @@ export const DefaultLayout = (props: { children: ReactNode }) => {
 					/>
 					<div>
 						{context !== undefined && context.isAuth() ? (
-							<div className='flex flex-row gap-4'>
+							<div className="flex flex-row gap-4">
 								<div
 									className="flex flex-row gap-3"
 									style={{ cursor: 'pointer' }}
@@ -35,7 +35,7 @@ export const DefaultLayout = (props: { children: ReactNode }) => {
 										{context.data?.firstName !== undefined ? (
 											<Avatar label={context.data?.firstName[0]} size="large" />
 										) : null}
-										<div className="flex flex-column">
+										<div className="md:flex flex-column hidden">
 											<span>
 												{context.data?.firstName} {context.data?.lastName}
 											</span>
@@ -44,19 +44,37 @@ export const DefaultLayout = (props: { children: ReactNode }) => {
 									</div>
 								</div>
 								{context.data?.role === 'Администратор' ? (
-									<Button
-										link
-										icon="pi pi-sliders-h"
-										label="Панель управления"
-										onClick={() => navigate('/tour/list')}
-									/>
+									<>
+										<Button
+											link
+											icon="pi pi-sliders-h"
+											label="Панель управления"
+											className="hidden md:block"
+											onClick={() => navigate('/tour/list')}
+										/>
+										<Button
+											link
+											className="block md:hidden"
+											icon="pi pi-sliders-h"
+											onClick={() => navigate('/tour/list')}
+										/>
+									</>
 								) : null}
-								<Button
-									icon="pi pi-sign-out"
-									link
-									label="Выйти"
-									onClick={() => context.logout()}
-								/>
+								<>
+									<Button
+										icon="pi pi-sign-out"
+										link
+										label="Выйти"
+										className="hidden md:block"
+										onClick={() => context.logout()}
+									/>
+									<Button
+										icon="pi pi-sign-out"
+										className="block md:hidden"
+										link
+										onClick={() => context.logout()}
+									/>
+								</>
 							</div>
 						) : (
 							<>
