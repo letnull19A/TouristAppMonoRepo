@@ -10,12 +10,11 @@ export const OrderList = () => {
 	const [favs, setFavs] = useState<Array<TOrder>>([])
 
 	useEffect(() => {
-
-		console.log(context.data);
+		console.log(context.data)
 
 		if (context.data === undefined) return
 
-		console.log(context.data?.id);
+		console.log(context.data?.id)
 
 		orderApi.getUserOrders(context.data?.id).then((res) => {
 			console.log(res)
@@ -26,8 +25,8 @@ export const OrderList = () => {
 	return (
 		<div className="flex flex-row">
 			<div className="ml-5" style={{ width: '100%' }}>
-					<h1 className="p-0 my-4">Заявки</h1>
-					<CardOrderGrid orders={favs} />
+				<h1 className="p-0 my-4">Заявки</h1>
+				<CardOrderGrid orders={favs} />
 			</div>
 		</div>
 	)
