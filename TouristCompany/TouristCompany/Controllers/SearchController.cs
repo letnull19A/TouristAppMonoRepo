@@ -175,7 +175,7 @@ public class SearchController(
 
         var result3 = result2
             .Select(t =>
-                t.Where(o => o.Date == date).Any())
+                t.Where(o => o.Date == date || o.Date < date.AddDays(3)).Any())
             .Any(u => u);
 
         if (!result3) return NotFound("Туров на подходящие параметры не найдены");
