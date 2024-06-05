@@ -21,6 +21,22 @@ public class CountryFromApi
     public string Name { get; set; } = string.Empty;
 }
 
+public class FilterDto
+{
+    public string? Search { get; set; }
+    public int Days { get; set; }
+    public string CountryName { get; set; }
+    public DateTime Date { get; set; }
+
+    public void Deconstruct(out string? search, out int days, out string countryName, out DateTime date)
+    {
+        search = Search;
+        days = Days;
+        countryName = CountryName;
+        date = Date;
+    }
+}
+
 public class Airport
 {
     public int Id { get; set; }
@@ -95,7 +111,7 @@ public class SearchController(
     }
 
     [HttpPost("filter")]
-    public IActionResult Filter(string? search, int days, string countryName, DateTime date)
+    public IActionResult Filter([FromBody] FilterDto filter)
     {
         var tours = tourRepository.GetAll();
         var countries = countryRepository.GetAll();
@@ -103,6 +119,8 @@ public class SearchController(
         var categories = categoryRepository.GetAll();
         var tourPrice = tourPriceRepository.GetAll();
 
+        var (search, days, countryName, date) = filter;
+        
         var result = tours.Join(countries, u => u.CountryId, v => v.Id, (u, v) => new
         {
             Id = u.Id,
