@@ -1,4 +1,4 @@
-import { ticketApi } from '@api'
+import { ticketApi, tourApi } from '@api'
 import { SearchContext } from '@contexts'
 import { TAirport, TCountry } from '@entities'
 import { CountryDropdown } from '@ui'
@@ -56,6 +56,7 @@ export const Filter = () => {
 	const [dates, setDates] = useState<Nullable<Date | null>>(null)
 	const [humans, setHumans] = useState<number>(1)
 	const [days, setDays] = useState<number>(1)
+	const [isFiltred, setIsFiltred] = useState<boolean>(false)
 
 	const context = useContext(SearchContext)
 
@@ -70,8 +71,39 @@ export const Filter = () => {
 
 	const { control, handleSubmit } = useForm({ defaultValues })
 
-	const onSubmit = (data: TFilter) => {
+	const onSubmit = async (data: TFilter) => {
 		console.log(data)
+
+		setIsFiltred((prev) => !prev)
+
+		if (isFiltred) {
+			tourApi.getAll().then(context.setData)
+			return
+		}
+
+		const result = await fetch(
+			`${import.meta.env.VITE_API_URI}/api/search/filter`,
+			{
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					search: context.search,
+					countryName: data.country?.name,
+					date: data.date,
+					days: data.days
+				})
+			}
+		)
+
+		const json = await result.json()
+
+		console.log(json)
+
+		if (json) {
+			console.log(json)
+
+			context.setData(json)
+		}
 	}
 
 	return (
@@ -184,7 +216,10 @@ export const Filter = () => {
 					)}
 				/>
 				<div className="col-12 lg:col-2">
-					<Button className="w-full" label="Применить фильтр" />
+					<Button
+						className="w-full"
+						label={!isFiltred ? 'Применить фильтр' : 'Сбросить фильтр'}
+					/>
 				</div>
 			</div>
 		</form>
