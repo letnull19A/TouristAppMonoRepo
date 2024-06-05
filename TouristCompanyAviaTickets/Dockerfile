@@ -1,4 +1,4 @@
-FROM dockerhub1.beget.com/library/node
+FROM node
 
 WORKDIR /app
 COPY . .

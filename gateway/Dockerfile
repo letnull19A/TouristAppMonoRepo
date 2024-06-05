@@ -1,4 +1,4 @@
-FROM dockerhub1.beget.com/library/nginx
+FROM nginx
 
 EXPOSE 9088
 
