@@ -41,15 +41,14 @@ export const UserList = () => {
 	}
 
 	const onRowEditComplete = (e: DataTableRowEditCompleteEvent) => {
-        const { newData } = e;
+		const { newData } = e
 
-		console.log(newData);
+		console.log(newData)
 
 		userApi.edit(newData as TUser).then(() => {
-			console.log('Updated');
+			console.log('Updated')
 		})
-		
-    };
+	}
 
 	return (
 		<div className="px-4">
@@ -68,16 +67,38 @@ export const UserList = () => {
 					onSelectionChange={(e) => setSelectedProducts(e.value)}
 					tableStyle={{ minWidth: '50rem' }}
 				>
-					<Column selectionMode="multiple" headerStyle={{ width: '3rem' }} />
-					<Column editor={textEditor} field="firstName" header="Имя" style={{ width: '30%' }} />
-					<Column editor={textEditor} field="lastName" header="Фамилия" style={{ width: '30%' }} />
 					<Column
+						selectionMode="multiple"
+						headerStyle={{ width: '3rem' }}
+					/>
+					<Column
+						sortable
+						editor={textEditor}
+						field="firstName"
+						header="Имя"
+						style={{ width: '30%' }}
+					/>
+					<Column
+						sortable
+						editor={textEditor}
+						field="lastName"
+						header="Фамилия"
+						style={{ width: '30%' }}
+					/>
+					<Column
+						sortable
 						editor={textEditor}
 						field="patronymic"
 						header="Отчество"
 						style={{ width: '30%' }}
 					/>
-					<Column editor={textEditor} field="email" header="E-Mail" style={{ width: '30%' }} />
+					<Column
+						sortable
+						editor={textEditor}
+						field="email"
+						header="E-Mail"
+						style={{ width: '30%' }}
+					/>
 					<Column
 						header="Действия"
 						rowEditor

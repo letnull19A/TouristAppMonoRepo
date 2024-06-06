@@ -85,12 +85,14 @@ export const CategoryList = () => {
 				>
 					<Column selectionMode="multiple" headerStyle={{ width: '3rem' }} />
 					<Column
+						sortable
 						field="name"
 						header="Название"
 						editor={(options) => textEditor(options)}
 						style={{ width: '30%' }}
 					/>
 					<Column
+						sortable
 						field="description"
 						header="Описание"
 						editor={(options) => textEditor(options)}

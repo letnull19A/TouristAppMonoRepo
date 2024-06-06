@@ -61,18 +61,26 @@ export const HotelList = () => {
 					tableStyle={{ minWidth: '50rem' }}
 				>
 					<Column selectionMode="multiple" headerStyle={{ width: '3rem' }} />
-					<Column field="name" header="Название" style={{ width: '30%' }} />
 					<Column
+						sortable
+						field="name"
+						header="Название"
+						style={{ width: '30%' }}
+					/>
+					<Column
+						sortable
 						field="country.name"
 						header="Страна"
 						style={{ width: '30%' }}
 					/>
 					<Column
+						sortable
 						field="city.name"
 						header="Город"
 						style={{ width: '30%' }}
 					></Column>
 					<Column
+						sortable
 						field="rating"
 						header="Рейтинг"
 						style={{ width: '15%' }}

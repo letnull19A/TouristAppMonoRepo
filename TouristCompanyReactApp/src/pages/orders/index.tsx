@@ -95,15 +95,32 @@ export const Orders = () => {
 				tableStyle={{ minWidth: '50rem' }}
 			>
 				<Column field="tour.name" header="Название" style={{ width: '20%' }} />
-				<Column field="order.date" header="Дата" style={{ width: '10%' }} />
-				<Column field="country.name" header="Страна" style={{ width: '10%' }} />
-				<Column field="city.name" header="Город" style={{ width: '15%' }} />
 				<Column
+					sortable
+					field="order.date"
+					header="Дата"
+					style={{ width: '10%' }}
+				/>
+				<Column
+					sortable
+					field="country.name"
+					header="Страна"
+					style={{ width: '10%' }}
+				/>
+				<Column
+					sortable
+					field="city.name"
+					header="Город"
+					style={{ width: '15%' }}
+				/>
+				<Column
+					sortable
 					field="user.label"
 					header="Пользователь"
 					style={{ width: '30%' }}
 				/>
 				<Column
+					sortable
 					header="Тур"
 					align={'center'}
 					body={(data) => {
@@ -123,6 +140,7 @@ export const Orders = () => {
 					}}
 				/>
 				<Column
+					sortable
 					field="order.displayStatus"
 					header="Статус"
 					style={{ width: '30%' }}

@@ -110,18 +110,21 @@ export const CityList = () => {
 				>
 					<Column selectionMode="multiple" headerStyle={{ width: '3rem' }} />
 					<Column
+						sortable
 						field="name"
 						header="Название города"
 						editor={(options) => textEditor(options)}
 						style={{ width: '30%' }}
 					/>
 					<Column
+						sortable
 						field="country.name"
 						header="Страна"
 						editor={(options) => countryDropdown(options)}
 						style={{ width: '30%' }}
 					/>
 					<Column
+						sortable
 						field="description"
 						header="Описание"
 						editor={(options) => textEditor(options)}
