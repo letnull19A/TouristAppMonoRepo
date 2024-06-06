@@ -34,13 +34,13 @@ export const TourInfo = (props: TTourInfoProps) => {
 				Оценка отеля:{' '}
 				<Rating cancel={false} readOnly value={currentHotel?.rating} />
 			</p>
-			<Tooltip target=".category" />
 			<p
 				className="category"
-				style={{display: 'block' }}
+				style={{display: 'block', width: 'fit-content'}}
 				data-pr-tooltip={currentTour?.category.description}
 				data-pr-position="right"
 			>
+				<Tooltip target=".category" className='ml-2' />
 				Категория: {currentTour?.category.name}
 			</p>
 			<p>Страна: {currentTour?.country.name}</p>
