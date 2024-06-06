@@ -8,12 +8,27 @@ import { Dialog } from 'primereact/dialog'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { OrderPage } from '@pages'
+import { SearchContext } from '@contexts'
+import { CardGrid } from './../../search/ui/CardGrid'
+
+const getRandom = async (): Promise<Array<TTour>> => {
+	const response = await fetch(
+		`${import.meta.env.VITE_API_URI}/api/tour/random/4`,
+		{
+			method: 'GET'
+		}
+	)
+
+	const data = await response.json()
+	return data
+}
 
 export const TourView = () => {
 	const [currentTour, setCurrentTour] = useState<TTour>()
 	const [currentHotel, setCurrentHotel] = useState<THotel>()
 	const [, setCurrentHotelTour] = useState<THotelTour>()
 	const [visible, setVisible] = useState<boolean>(false)
+	const [tours, setTours] = useState<Array<TTour>>()
 
 	const { id } = useParams()
 
@@ -29,6 +44,8 @@ export const TourView = () => {
 				hotelApi.getById(resq[0].hotelId).then(setCurrentHotel)
 			})
 		})
+		
+		getRandom().then(setTours)
 	}, [id])
 
 	return (
@@ -43,7 +60,7 @@ export const TourView = () => {
 					setVisible(false)
 				}}
 			>
-				<OrderPage/>
+				<OrderPage />
 			</Dialog>
 			<div className="grid mt-5 flex flex-column md:flex-row">
 				<div className="col-12 md:col-7">
@@ -77,6 +94,11 @@ export const TourView = () => {
 				</Accordion>
 			</div>
 			<p className="text-2xl">Смотрите ещё</p>
+			{tours !== undefined && (
+				<SearchContext.Provider value={{ data: tours, setData: setTours }}>
+					<CardGrid />
+				</SearchContext.Provider>
+			)}
 		</>
 	)
 }

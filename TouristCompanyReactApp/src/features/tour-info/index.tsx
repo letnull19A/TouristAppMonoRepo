@@ -4,6 +4,7 @@ import { Card } from 'primereact/card'
 import { Rating } from 'primereact/rating'
 import { useEffect, useState } from 'react'
 import './style.css'
+import { Tooltip } from 'primereact/tooltip'
 
 type TTourInfoProps = {
 	tourId: string
@@ -33,7 +34,15 @@ export const TourInfo = (props: TTourInfoProps) => {
 				Оценка отеля:{' '}
 				<Rating cancel={false} readOnly value={currentHotel?.rating} />
 			</p>
-			<p>Категория: {currentTour?.category.name}</p>
+			<Tooltip target=".category" />
+			<p
+				className="category"
+				style={{display: 'block' }}
+				data-pr-tooltip={currentTour?.category.description}
+				data-pr-position="right"
+			>
+				Категория: {currentTour?.category.name}
+			</p>
 			<p>Страна: {currentTour?.country.name}</p>
 			<p>Город: {currentTour?.city.name}</p>
 		</Card>

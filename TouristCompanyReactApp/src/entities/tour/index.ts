@@ -6,7 +6,7 @@ export type TTour = {
 	description: string
 	city: { name: string } & TBase
 	country: { name: string } & TBase
-	category: { name: string } & TBase
+	category: { name: string, description: string } & TBase
 	imageUrl: string
 } & TBase
 
