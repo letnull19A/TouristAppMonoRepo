@@ -72,6 +72,7 @@ export const OrderCard = (props: HotelCardProps) => {
 				style={{ overflow: 'hidden' }}
 				footer={footer}
 				header={header}
+				className='p-card-order'
 			>
 				<Rating value={stars} readOnly cancel={false} />
 				<p className="mt-2 card__description">{orderData.tour.description}</p>
