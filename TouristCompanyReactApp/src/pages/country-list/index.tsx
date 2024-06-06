@@ -32,7 +32,14 @@ export const CountryList = () => {
 
 		countryApi.edit(newData as TCountry).then(() => {
 			getAll().then((res) => {
-				setCountries(res)
+				setCountries(
+					res.map((c) => {
+						return {
+							...c,
+							description: c.description.slice(0, 100).trimEnd() + '...'
+						}
+					})
+				)
 			})
 		})
 	}

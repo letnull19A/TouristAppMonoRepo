@@ -10,7 +10,7 @@ import { Button } from 'primereact/button'
 import { CountryDropdown } from '@ui'
 
 export const CityList = () => {
-	const [categories, setCategories] = useState<Array<TCity>>([])
+	const [cities, setCities] = useState<Array<TCity>>([])
 	const [selected, setSelectedProducts] = useState<Array<TCity>>([])
 	const [country, setCountry] = useState<TCountry | null>(null)
 
@@ -18,7 +18,7 @@ export const CityList = () => {
 
 	useEffect(() => {
 		getAll().then((res) => {
-			setCategories(
+			setCities(
 				res.map((c) => {
 					return {
 						...c,
@@ -42,6 +42,17 @@ export const CityList = () => {
 		}
 
 		await cityApi.edit(adaptedData)
+
+		getAll().then((res) => {
+			setCities(
+				res.map((c) => {
+					return {
+						...c,
+						description: c.description.slice(0, 100).trimEnd() + '...'
+					}
+				})
+			)
+		})
 	}
 
 	const textEditor = (options: ColumnEditorOptions) => {
@@ -61,7 +72,7 @@ export const CityList = () => {
 			<CountryDropdown
 				defaultValue={options.rowData.country as TCountry}
 				onChange={(e) => {
-					setCountry(e.target.value as TCountry)
+					setCountry(e.target.value)
 				}}
 			/>
 		)
@@ -75,7 +86,7 @@ export const CityList = () => {
 		setSelectedProducts([])
 
 		setTimeout(() => {
-			getAll().then(setCategories)
+			getAll().then(setCities)
 		}, 1000)
 	}
 
@@ -98,7 +109,7 @@ export const CityList = () => {
 			<AdminPageTitle title="Список Городов" toMain />
 			<div className="card p-fluid">
 				<DataTable
-					value={categories}
+					value={cities}
 					editMode="row"
 					dataKey="id"
 					className="pt-4"
