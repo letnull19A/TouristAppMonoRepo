@@ -119,7 +119,7 @@ export const Filter = () => {
 							<AirportsDropdown
 								onChange={(e) => {
 									field.onChange(e.target.value)
-									context.setAirportId(e.target.value)
+									context.setAirportId?.(e.target.value)
 								}}
 							/>
 						</div>
@@ -135,7 +135,7 @@ export const Filter = () => {
 							<CountryDropdown
 								onChange={(e) => {
 									field.onChange(e.target.value)
-									context.setCountry(e.target.value)
+									context.setCountry?.(e.target.value)
 								}}
 							/>
 						</div>
