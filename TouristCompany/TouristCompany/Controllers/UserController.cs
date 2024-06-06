@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using TouristCompany.Interfaces;
+using TouristCompany.Models.DTOs.User;
 using TouristCompany.Models.Entities;
 
 namespace TouristCompany.Controllers
@@ -20,12 +21,16 @@ namespace TouristCompany.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public IActionResult UpdateUser(Guid id, User user)
+        public IActionResult UpdateUser(Guid id, UserUpdateDto user)
         {
-            if (id != user.Id)
-                return BadRequest();
+            var currentUser = userRepository.GetById(id);
 
-            userRepository.Update(user);
+            currentUser.Email = user.Email;
+            currentUser.FirstName = user.FirstName;
+            currentUser.LastName = user.LastName;
+            currentUser.Patronymic = user.Patronymic;
+            
+            userRepository.Update(currentUser);
             return NoContent();
         }
 

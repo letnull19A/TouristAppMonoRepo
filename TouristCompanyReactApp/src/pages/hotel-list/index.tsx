@@ -48,7 +48,7 @@ export const HotelList = () => {
 	return (
 		<div className="px-4">
 			<ConfirmDialog />
-			<AdminPageTitle title="Список стран" toMain />
+			<AdminPageTitle title="Список отелей" toMain />
 			<div className="card p-fluid">
 				<DataTable
 					value={categories}
