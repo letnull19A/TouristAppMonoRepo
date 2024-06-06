@@ -235,37 +235,6 @@ export function SideBar() {
 											/>
 										</ul>
 									</li>
-									<li>
-										<StyleClass
-											nodeRef={btnRef8}
-											selector="@next"
-											enterClassName="hidden"
-											enterActiveClassName="slidedown"
-											leaveToClassName="hidden"
-											leaveActiveClassName="slideup"
-										>
-											<a
-												ref={btnRef8}
-												className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full"
-											>
-												<i className="pi pi-map mr-2"></i>
-												<span className="font-medium">Места и точки</span>
-												<i className="pi pi-chevron-down ml-auto mr-1"></i>
-											</a>
-										</StyleClass>
-										<ul className="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
-											<SideBarItem
-												iconClass="pi-list"
-												navigatePath="/attraction/list"
-												label="Список"
-											/>
-											<SideBarItem
-												iconClass="pi-plus"
-												navigatePath="/attraction/create"
-												label="Добавить"
-											/>
-										</ul>
-									</li>
 								</ul>
 							</li>
 						</ul>
