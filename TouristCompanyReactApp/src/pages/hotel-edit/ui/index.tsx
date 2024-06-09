@@ -43,6 +43,8 @@ export const HotelEdit = () => {
 	const { control, handleSubmit } = useForm({ defaultValues })
 
 	const onSubmit = (data: Partial<TEditHotelForm>) => {
+		console.log(data)
+
 		edit({
 			id: data.id ?? '',
 			cityId: data.cityId ?? '',
@@ -88,8 +90,15 @@ export const HotelEdit = () => {
 						<Controller
 							name="countryId"
 							control={control}
-							render={() => (
-								<CountryDropdown defaultValue={country} className="mt-4" />
+							defaultValue={hotelData.country.id}
+							render={({ field }) => (
+								<CountryDropdown
+									defaultValue={country}
+									onChange={(e) =>
+										field.onChange((e.target.value as TCountry).id)
+									}
+									className="mt-4"
+								/>
 							)}
 						/>
 						<Controller
