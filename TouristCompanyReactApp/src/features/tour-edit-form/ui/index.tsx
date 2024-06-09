@@ -283,6 +283,7 @@ export const TourEditForm = () => {
 								cols={30}
 								className={classNames({ 'p-invalid': fieldState.error })}
 								style={{ width: '100%' }}
+								onChange={(e) => field.onChange(e.target.value)}
 							/>
 							<label htmlFor={field.name}>Описание</label>
 						</span>
