@@ -17,7 +17,9 @@ export const SearchPage = () => {
 
 	useEffect(() => {
 		tourApi.getAll().then((res) => {
-			setTours(res)
+			setTimeout(() => {
+				setTours(res)
+			}, 1500)
 		})
 	}, [])
 
@@ -33,9 +35,9 @@ export const SearchPage = () => {
 					setAirportId: setAirportId,
 					country: country,
 					setCountry: setCountry,
-                    humans: humans,
-                    setHumans: setHumans,
-                    days: days,
+					humans: humans,
+					setHumans: setHumans,
+					days: days,
 					setDays: setDays
 				}}
 			>

@@ -18,7 +18,9 @@ export const OrderList = () => {
 
 		orderApi.getUserOrders(context.data?.id).then((res) => {
 			console.log(res)
-			setFavs(res)
+			setTimeout(() => {
+				setFavs(res)
+			}, 1500)
 		})
 	}, [context.data])
 

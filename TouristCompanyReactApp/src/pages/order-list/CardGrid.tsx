@@ -19,7 +19,9 @@ export const CardOrderGrid = (props: TFavPage) => {
 			{orders !== undefined && orders.length > 0 ? (
 				cards
 			) : (
-				<>Текущие заявки отсутствуют</>
+				<div className="w-full flex justify-content-center" style={{ gridColumn: '1/5' }}>
+					<img src="/preloader.gif" />
+				</div>
 			)}
 		</div>
 	)

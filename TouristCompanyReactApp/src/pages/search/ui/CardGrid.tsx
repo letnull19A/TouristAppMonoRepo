@@ -10,7 +10,9 @@ export const CardGrid = () => {
 			{context.data !== undefined && context.data.length > 0 ? (
 				context.data.map((tour) => <HotelCard key={tour.id} tourData={tour} />)
 			) : (
-				<>Туры отсутствуют</>
+				<div className='w-full flex justify-content-center'>
+					<img src="/preloader.gif" />
+				</div>
 			)}
 		</div>
 	)
