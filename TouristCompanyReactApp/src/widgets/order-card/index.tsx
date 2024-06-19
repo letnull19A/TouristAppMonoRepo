@@ -29,13 +29,25 @@ export const OrderCard = (props: HotelCardProps) => {
 	const renderStatus = (status: string) => {
 		switch (status) {
 			case 'AWAIT':
-				return 'Заявка на рассмотрении'
+				return (
+					<div className="text-orange-300 font-semibold">
+						<i className="pi pi-clock mr-2 font-semibold"></i>
+						Заявка на рассмотрении
+					</div>
+				)
 			case 'ACCEPT':
-				return 'Заявка принята'
-			case 'REJECT':
-				return 'Заявка отклонена'
+				return (
+					<div className="text-green-300 font-semibold">
+						<i className="pi pi-check mr-2 font-semibold"></i>Заявка принята
+					</div>
+				)
 			case 'CANCEL':
-				return 'Заявка отменена'
+				return (
+					<div className="text-red-300 font-semibold">
+						<i className="pi pi-times  mr-2 font-semibold"></i>
+						Заявка отклонена
+					</div>
+				)
 			default:
 				return 'Неизвестно'
 		}
@@ -50,7 +62,7 @@ export const OrderCard = (props: HotelCardProps) => {
 	)
 	const footer = (
 		<>
-			<span className='mt-3'>{renderStatus(orderData.order.status)}</span>
+			<span className="mt-3">{renderStatus(orderData.order.status)}</span>
 		</>
 	)
 
@@ -72,7 +84,7 @@ export const OrderCard = (props: HotelCardProps) => {
 				style={{ overflow: 'hidden' }}
 				footer={footer}
 				header={header}
-				className='p-card-order'
+				className="p-card-order"
 			>
 				<Rating value={stars} readOnly cancel={false} />
 				<p className="mt-2 card__description">{orderData.tour.description}</p>

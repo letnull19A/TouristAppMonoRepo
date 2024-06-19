@@ -6,7 +6,7 @@ import { Accordion, AccordionTab } from 'primereact/accordion'
 import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { OrderPage } from '@pages'
 import { SearchContext } from '@contexts'
 import { CardGrid } from './../../search/ui/CardGrid'
@@ -28,9 +28,12 @@ export const TourView = () => {
 	const [currentHotel, setCurrentHotel] = useState<THotel>()
 	const [, setCurrentHotelTour] = useState<THotelTour>()
 	const [visible, setVisible] = useState<boolean>(false)
+	const [succesDialogue, setSuccesDialogue] = useState<boolean>(false)
 	const [tours, setTours] = useState<Array<TTour>>()
 
 	const { id } = useParams()
+
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		if (id === undefined) return
@@ -44,7 +47,7 @@ export const TourView = () => {
 				hotelApi.getById(resq[0].hotelId).then(setCurrentHotel)
 			})
 		})
-		
+
 		getRandom().then(setTours)
 	}, [id])
 
@@ -55,12 +58,39 @@ export const TourView = () => {
 				header="Оставить заявку"
 				visible={visible}
 				style={{ width: '30vw' }}
+				draggable={false}
 				onHide={() => {
-					if (!visible) return
 					setVisible(false)
 				}}
 			>
-				<OrderPage />
+				<OrderPage
+					onMarked={() => {
+						setVisible(false)
+						setSuccesDialogue(true)
+					}}
+				/>
+			</Dialog>
+			<Dialog
+				header="Успех! Заявка на рассмотрении"
+				visible={succesDialogue}
+				style={{ width: '30vw' }}
+				draggable={false}
+				onHide={() => {
+					setSuccesDialogue(false)
+				}}
+			>
+				<div className="flex flex-column">
+					<img
+						style={{ display: 'block', margin: '0 auto' }}
+						src="/icons8-success-240.svg"
+					/>
+					<Button
+						onClick={() => navigate('/order-list')}
+						link
+						className="mt-4"
+						label="Перейти к заявкам"
+					/>
+				</div>
 			</Dialog>
 			<div className="grid mt-5 flex flex-column md:flex-row">
 				<div className="col-12 md:col-7">

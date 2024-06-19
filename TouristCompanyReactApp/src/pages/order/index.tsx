@@ -15,13 +15,19 @@ type TOrder = {
 	options: TTourPrice
 }
 
-export const OrderPage = () => {
+type TOrderProps = {
+	onMarked?: () => void
+}
+
+export const OrderPage = (props: TOrderProps) => {
 	const [, setCurrentTour] = useState<TTour>()
 	const [, setCurrentHotel] = useState<THotel>()
 	const [, setCurrentHotelTour] = useState<THotelTour>()
 	const [prices, setPrices] = useState<Array<TTourPrice>>([])
 	const [date, setDate] = useState<Nullable<Date>>(null)
 	const [days, setDays] = useState<number>(1)
+
+	const { onMarked } = props
 
 	const { id } = useParams()
 
@@ -61,6 +67,8 @@ export const OrderPage = () => {
 			})
 			.then((res) => {
 				console.log(res)
+
+				onMarked?.()
 			})
 	}
 
